@@ -1,0 +1,31 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+    padding: 0px;
+    margin: 0px;
+	/* font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; */
+}
+
+
+nav a {
+    color: white !important;
+    
+}
+
+nav a:hover {
+	color: gray !important;	
+}
+
+#title {
+	margin-top: 50px;
+	text-align: center;
+	font-size: 80px;
+	font-weight: bolder;
+}
+
+.navbar {
+    background-color: #714ef9 !important;
+}
+
+.navbar-custom {
+    background-color: #714ef9 !important;
+}
