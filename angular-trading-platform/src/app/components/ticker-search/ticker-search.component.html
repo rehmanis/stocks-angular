@@ -1,1 +1,16 @@
-<p>ticker-search works!</p>
+<form class="example-form" [formGroup]='searchForm'>
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Enter stock name" [matAutocomplete]="auto" formControlName='userInput'>
+    </mat-form-field>
+
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+      <mat-option *ngIf="isLoading" class="is-loading"><mat-spinner diameter="20"></mat-spinner></mat-option>
+      <ng-container *ngIf="!isLoading">
+        <mat-option *ngFor="let company of companySResults" [value]="company">
+          <span>{{ company.ticker }}</span>
+          <span> | {{ company.name }}</span>
+        </mat-option>
+      </ng-container>
+    </mat-autocomplete>
+</form>
+  
