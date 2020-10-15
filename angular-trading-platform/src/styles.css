@@ -15,12 +15,6 @@ nav a:hover {
 	color: gray !important;	
 }
 
-#title {
-	margin-top: 50px;
-	text-align: center;
-	font-size: 80px;
-	font-weight: bolder;
-}
 
 .navbar {
     background-color: #714ef9 !important;
@@ -32,3 +26,4 @@ nav a:hover {
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+

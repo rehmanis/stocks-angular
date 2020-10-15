@@ -1,3 +1,4 @@
+const { response } = require('express');
 var express = require('express');
 var fetch = require('node-fetch');
 var router = express.Router();
@@ -15,7 +16,8 @@ router.get('/search', function(req, res, next) {
 
 });
 
-/* GET users listing. */
+
+/* Search for company names api for autocomplete */
 router.get('/search/:ticker', function(req, res, next) {
 
     companies = [];
@@ -27,6 +29,45 @@ router.get('/search/:ticker', function(req, res, next) {
     .then(data => processData(data))
     .then(data => res.send(data));
 
+});
+
+
+/* Get the details for the company */
+router.get('/detail/:ticker', function(req, res, next) {
+
+  details = {};
+  ticker = req.params.ticker;
+  console.log("\nrequesting company details\n");
+
+  fetch(`https://api.tiingo.com/tiingo/daily/${ticker}?token=8bb5d357e4616c9938090e9e3de7acefc38d224b`)
+  .then(res => res.json())
+  .then(function(data) {
+    details.results = data;
+    details.success = true;
+    console.log(details)
+    res.send(details)
+  });
+  
+
+
+});
+
+
+/* Get the details for the company */
+router.get('/price/:ticker', function(req, res, next) {
+
+  price = {};
+  ticker = req.params.ticker;
+  console.log("\nrequesting company price\n");
+
+  fetch(`https://api.tiingo.com/iex/?tickers=${ticker}&token=8bb5d357e4616c9938090e9e3de7acefc38d224b`)
+  .then(res => res.json())
+  .then(function(data) {
+    price.results = data[0];
+    price.success = true;
+    console.log(price)
+    res.send(price)
+  });
 });
 
 function processData(data) {

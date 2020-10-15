@@ -6,6 +6,7 @@ import {SearchService} from 'src/app/services/search.service';
 import {switchMap, debounceTime, tap, finalize, startWith} from 'rxjs/operators';
 import {User, IUserResponse} from 'src/app/models/Users';
 import { tick } from '@angular/core/testing';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -20,7 +21,7 @@ export class TickerSearchComponent implements OnInit {
   isLoading = false;
 
   
-  constructor(private fb: FormBuilder, private appService: SearchService) {}
+  constructor(private fb: FormBuilder, private appService: SearchService, private router: Router) {}
 
   ngOnInit() {
     this.searchForm = this.fb.group({
@@ -47,6 +48,13 @@ export class TickerSearchComponent implements OnInit {
     if (company) { 
       return company.ticker; 
     }
+  }
+
+  onSubmit(tickerVal: string) {
+    // Process checkout data here
+    this.router.navigateByUrl('details/' + tickerVal);
+    console.log('Your request has been submitted', tickerVal);
+    
   }
 
 

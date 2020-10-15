@@ -1,16 +1,78 @@
-<form class="example-form" [formGroup]='searchForm'>
-    <mat-form-field class="example-full-width">
-      <input matInput placeholder="Enter stock name" [matAutocomplete]="auto" formControlName='userInput'>
-    </mat-form-field>
-
-    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-      <mat-option *ngIf="isLoading" class="is-loading"><mat-spinner diameter="20"></mat-spinner></mat-option>
-      <ng-container *ngIf="!isLoading">
-        <mat-option *ngFor="let company of companySResults" [value]="company">
-          <span>{{ company.ticker }}</span>
-          <span> | {{ company.name }}</span>
-        </mat-option>
-      </ng-container>
-    </mat-autocomplete>
-</form>
+<!-- <div class="container">
   
+  <div class="row align-items-center" id="title"> 
+    <div class="col">
+      Stock Search
+    </div>
+  </div>
+  
+  <div class="row align-items-center">
+    <form class="col form-group form-container" [formGroup]='searchForm'>
+        <input id="input-field" matInput placeholder="Enter stock name" [matAutocomplete]="auto" formControlName='userInput'>
+        <button class="btn check-icon" mat-icon-button aria-label="Example icon button with a vertical three dot icon">
+          <mat-icon >search</mat-icon>
+        </button>
+  
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+        <mat-option *ngIf="isLoading" class="is-loading"><mat-spinner diameter="20"></mat-spinner></mat-option>
+        <ng-container *ngIf="!isLoading">
+          <mat-option *ngFor="let company of companySResults" [value]="company">
+            <span>{{ company.ticker }}</span>
+            <span> | {{ company.name }}</span>
+          </mat-option>
+        </ng-container>
+      </mat-autocomplete>
+    </form>
+  </div>
+
+</div> -->
+
+<div class="container">
+  <div class="row title">
+    <div class="col-12">
+      Stock Search
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <form class="form-group form-container" [formGroup]='searchForm' (ngSubmit)="onSubmit(searchBar.value)">
+        <div class="input-group mycustom">
+          <input required class="form-control" #searchBar matInput placeholder="Enter stock name" [matAutocomplete]="auto" formControlName='userInput'>
+          <div class="input-group-prepend">
+            <button type="submit" class="btn check-icon" mat-icon-button aria-label="Example icon button with a vertical three dot icon">
+              <mat-icon >search</mat-icon>
+            </button>    
+          </div>
+        </div>
+
+  
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+          <mat-option *ngIf="isLoading" class="is-loading"><mat-spinner diameter="20"></mat-spinner></mat-option>
+          <ng-container *ngIf="!isLoading">
+            <mat-option *ngFor="let company of companySResults" [value]="company">
+              <span>{{ company.ticker }}</span>
+              <span> | {{ company.name }}</span>
+            </mat-option>
+          </ng-container>
+        </mat-autocomplete>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+ <!-- <div class="container">
+  <h1>Grid</h1>
+  <p>This example demonstrates a 50%/50% split on small, medium and large devices. On extra small devices, it will stack (100% width).</p>      
+  <p>Resize the browser window to see the effect.</p>      
+  <div class="row">
+    <div class="col-sm-6" style="background-color:yellow;">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.<br>
+      Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    </div>
+    <div class="col-sm-6" style="background-color:pink;">
+      Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto.    
+    </div>
+  </div>
+</div> -->
