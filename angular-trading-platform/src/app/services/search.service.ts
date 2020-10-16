@@ -17,8 +17,7 @@ export class SearchService {
     return this.http.get<InSearchResponse>('/api/search/' + filter.name)
     .pipe(
       tap((response: InSearchResponse) => {
-        response.results = response.results
-          .map(company => new CompanySearchResult(company.ticker, company.name))
+        response.results = response.results.map(company => new CompanySearchResult(company.ticker, company.name))
 
         return response;
       }));

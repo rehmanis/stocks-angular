@@ -42,13 +42,11 @@ router.get('/detail/:ticker', function(req, res, next) {
   fetch(`https://api.tiingo.com/tiingo/daily/${ticker}?token=8bb5d357e4616c9938090e9e3de7acefc38d224b`)
   .then(res => res.json())
   .then(function(data) {
-    details.results = data;
+    details.results = [data];
     details.success = true;
     console.log(details)
     res.send(details)
   });
-  
-
 
 });
 
@@ -63,7 +61,7 @@ router.get('/price/:ticker', function(req, res, next) {
   fetch(`https://api.tiingo.com/iex/?tickers=${ticker}&token=8bb5d357e4616c9938090e9e3de7acefc38d224b`)
   .then(res => res.json())
   .then(function(data) {
-    price.results = data[0];
+    price.results = data;
     price.success = true;
     console.log(price)
     res.send(price)

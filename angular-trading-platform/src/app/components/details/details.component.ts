@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, forkJoin } from 'rxjs';
+import {DetailsService} from 'src/app/services/details.service';
+import { ActivatedRoute } from "@angular/router";
+import { CompanyDetails } from 'src/app/models/CompanyDetails';
+import { CompanyPrice } from 'src/app/models/CompanyPrice';
 
 @Component({
   selector: 'app-details',
@@ -9,18 +11,29 @@ import { Observable, forkJoin } from 'rxjs';
 })
 export class DetailsComponent implements OnInit {
 
-  constructor(private http: HttpClient) { }
+  companyDetails: CompanyDetails[] = [];
+  companyPrice: CompanyPrice[];
+  ticker: string;
+  isLoading = true;
+
+  constructor(private detailService: DetailsService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
 
-    // let character = this.http.get('https://swapi.co/api/people/1');
-    // let characterHomeworld = this.http.get('http://swapi.co/api/planets/1');
+    this.route.paramMap.subscribe(params => {
+      this.ticker = params.get("ticker");
+    })
 
-    // forkJoin([character, characterHomeworld]).subscribe(results => {
-    //   // results[0] is our character
-    //   // results[1] is our character homeworld
-    //   results[0].homeworld = results[1];
-    //   this.loadedCharacter = results[0];
+    this.detailService.getCompanyDetails(this.ticker).subscribe ( responseList => {
+
+      this.companyDetails = responseList[0].results;
+      this.companyPrice = responseList[1].results;
+      this.isLoading = false;
+
+      console.log(this.companyPrice);
+      console.log(this.companyDetails);
+
+    });
 
 
   }
