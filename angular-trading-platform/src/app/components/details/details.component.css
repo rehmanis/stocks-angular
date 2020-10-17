@@ -1,0 +1,42 @@
+.align-end {
+    text-align: end;
+}
+
+.row1 {
+    margin-top: 20px;
+    font-size: 30px;
+    /* height: 50px; */
+    font-weight: 500;
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+}
+
+.row2 {
+    font-size: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    opacity: 80%;
+}
+
+.row3 {
+    font-size: 13px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.positive {
+    color: green;
+}
+
+.negative {
+    color: red;
+}
+
+.market-status {
+    text-align: center;
+}
+
+.price-details {
+    text-align: center;
+}

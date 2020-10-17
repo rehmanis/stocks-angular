@@ -11,6 +11,7 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatProgressSpinnerModule }  from '@angular/material/progress-spinner'
 import { MatInputModule } from '@angular/material/input';
+import { MatTabsModule } from '@angular/material/tabs'
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { InMemDataService } from 'src/app/services/in-memory-data.service';
@@ -40,7 +41,8 @@ import { DetailsComponent } from './components/details/details.component';
     FormsModule,
     ReactiveFormsModule,
     MatProgressSpinnerModule,
-    MatInputModule
+    MatInputModule,
+    MatTabsModule
   ],
   
   providers: [],
