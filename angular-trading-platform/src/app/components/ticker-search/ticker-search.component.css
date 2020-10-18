@@ -56,16 +56,6 @@
 
 
 
-/* .check-icon {
-	right:30px;
-	position:absolute;
-	top:10px;
-} */
-
-/* .form-field {
-	border-radius: 20px !important;
-} */
-
 .form-container input, button{
     border-radius: 20px !important;
 }
@@ -92,3 +82,4 @@
     top: 4px;
     bottom: 4px;z-index:9;
 }
+

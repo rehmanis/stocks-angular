@@ -19,6 +19,8 @@ import { InMemDataService } from 'src/app/services/in-memory-data.service';
 import { AppComponent } from './app.component';
 import { TickerSearchComponent } from './components/ticker-search/ticker-search.component';
 import { DetailsComponent } from './components/details/details.component';
+import { HighchartsChartModule } from 'highcharts-angular';
+
 
 
 @NgModule({
@@ -35,14 +37,13 @@ import { DetailsComponent } from './components/details/details.component';
     BrowserAnimationsModule,
     MatFormFieldModule, 
     MatIconModule,
-    // HttpClientInMemoryWebApiModule.forRoot(
-    //   InMemDataService, { dataEncapsulation: false, delay: 1000 }),
     MatAutocompleteModule,
     FormsModule,
     ReactiveFormsModule,
     MatProgressSpinnerModule,
     MatInputModule,
-    MatTabsModule
+    MatTabsModule,
+    HighchartsChartModule
   ],
   
   providers: [],

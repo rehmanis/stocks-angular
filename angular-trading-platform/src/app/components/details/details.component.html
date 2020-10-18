@@ -1,5 +1,9 @@
 <div>
-    <mat-option *ngIf="isLoading" class="is-loading"><mat-spinner diameter="20"></mat-spinner></mat-option>
+    <div *ngIf="isLoading" class="is-loading spinner" layout="row" layout-align="center center">
+        <mat-spinner mode="indeterminate" diameter="60"></mat-spinner>
+    </div>
+
+    <!-- <ng-container *ngIf="isLoading" class="is-loading" layout-align="center center"><mat-spinner  diameter="50"></mat-spinner></ng-container> -->
     <ng-container *ngIf="!isLoading">
 
     
@@ -28,7 +32,7 @@
                             <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
                         </svg>
                     </span>
-                    <span> {{ companyPrice[0].change }} ({{ companyPrice[0].perChange }} &#37; ) </span>
+                    <span> {{ companyPrice[0].change }} ({{ companyPrice[0].perChange }} &#37;) </span>
                 </div>
             </div>
             <div class="row row3 align-items-center">
@@ -36,7 +40,7 @@
                     {{ companyDetails[0].exchangeCode }}
                 </div>
                 <div class="col align-end">
-                    One of three columns
+                    {{ companyPrice[0].currDateStr }}
                 </div>
             </div>
             <div class="row">
@@ -45,8 +49,13 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col market-status">
-                    Market is 
+                <div class="col market-status" >
+                    <div *ngIf="companyPrice[0].isMarketOpen; else marketClosed" class="market-open">
+                        Market is Open
+                    </div>
+                    <ng-template #marketClosed>
+                        <span class="market-closed">Market closed on {{ companyPrice[0].dataDateStr }}</span>
+                    </ng-template>
                 </div>
             </div>
             <div class="row">
@@ -84,6 +93,7 @@
                                               </tr>
                                             </tbody>
                                           </table> -->
+                                          
                                         <div class="row">
                                             <div class="col bg-success">
                                                 High Price:
@@ -175,7 +185,13 @@
                                         </div>
                                     </div>
                                     <div class="col">
-                                        CHARTS
+                                        <highcharts-chart 
+                                            [Highcharts]="Highcharts"
+                                            [options]="chartOptions"
+                                            [constructorType]="'stockChart'" 
+ 
+                                            style="width: 100%; height: 400px; display: block;"
+                                        ></highcharts-chart>
                                     </div>
                                 </div>
                             </div>

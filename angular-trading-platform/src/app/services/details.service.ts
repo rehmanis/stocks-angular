@@ -6,6 +6,7 @@ import { stringify } from 'querystring';
 
 import { CompanyPrice, PriceResponse } from 'src/app/models/CompanyPrice'
 import { CompanyDetails, DetailsResponse} from 'src/app/models/CompanyDetails'
+import { DailyChart, DailyChartResponse } from '../models/DailyChart';
 
 @Injectable({
   providedIn: 'root'
@@ -41,6 +42,21 @@ export class DetailsService {
       }));
 
     return forkJoin([detail$, price$]);
+
+  }
+
+  public getDailyChart(ticker: string, startDate: string): Observable<DailyChartResponse> {
+
+    return this.http.get<DailyChartResponse>(this.rootURL + '/chart/daily/' + ticker + '/' + startDate)
+    
+    .pipe(
+      tap( (res: DailyChartResponse) => {
+        res.results = res.results.map(
+          chartData => new DailyChart(chartData.date, chartData.close));
+
+        return res;
+    }));  
+
 
   }
   

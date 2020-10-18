@@ -68,6 +68,27 @@ router.get('/price/:ticker', function(req, res, next) {
   });
 });
 
+/* Get the details for the company */
+router.get('/chart/daily/:ticker/:startDate', function(req, res, next) {
+
+  dailyChart = {};
+  ticker = req.params.ticker;
+  startDate = req.params.startDate;
+  console.log(`\nrequesting company daily chart for ${ticker} from ${startDate}\n`);
+
+  fetch(`https://api.tiingo.com/iex/${ticker}/prices?startDate=${startDate}&resampleFreq=4min&token=8bb5d357e4616c9938090e9e3de7acefc38d224b`)
+  .then(res => res.json())
+  .then(function(data) {
+    dailyChart.results = data;
+    dailyChart.success = true;
+    res.send(dailyChart)
+  });
+
+  
+
+});
+
+
 function processData(data) {
 
   var result = {
