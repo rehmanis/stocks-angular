@@ -20,6 +20,8 @@ import { AppComponent } from './app.component';
 import { TickerSearchComponent } from './components/ticker-search/ticker-search.component';
 import { DetailsComponent } from './components/details/details.component';
 import { HighchartsChartModule } from 'highcharts-angular';
+import { NewsModalComponent } from './components/news-modal/news-modal.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -28,7 +30,8 @@ import { HighchartsChartModule } from 'highcharts-angular';
     AppComponent,
     TickerSearchComponent,
     WatchlistComponent,
-    DetailsComponent
+    DetailsComponent,
+    NewsModalComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +46,8 @@ import { HighchartsChartModule } from 'highcharts-angular';
     MatProgressSpinnerModule,
     MatInputModule,
     MatTabsModule,
-    HighchartsChartModule
+    HighchartsChartModule,
+    NgbModule
   ],
   
   providers: [],

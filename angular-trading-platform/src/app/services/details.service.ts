@@ -7,6 +7,7 @@ import { stringify } from 'querystring';
 import { CompanyPrice, PriceResponse } from 'src/app/models/CompanyPrice'
 import { CompanyDetails, DetailsResponse} from 'src/app/models/CompanyDetails'
 import { DailyChart, DailyChartResponse } from '../models/DailyChart';
+import { News, NewsResponse } from '../models/News';
 
 @Injectable({
   providedIn: 'root'
@@ -56,8 +57,36 @@ export class DetailsService {
 
         return res;
     }));  
+  }
 
+
+  public getNewsAndHisChart(ticker: string): Observable<any[]> {
+
+    let news$ = this.http.get<NewsResponse>(this.rootURL + '/news/' + ticker)
+      .pipe(
+        tap( (res: NewsResponse) => {
+          res.results = res.results.map(
+            news => new News(news.url, news.title, news.description, news.source, 
+              news.urlToImage, news.publishedAt));
+        
+          return res;
+      }));
+
+
+    // let price$ = this.http.get(this.rootURL + '/price/' + ticker)
+    //   .pipe(
+    //     tap( (res: PriceResponse) => {
+    //       res.results = res.results.map(
+    //         price => new CompanyPrice(price.ticker, price.timestamp, price.last, 
+    //           price.prevClose, price.open, price.high, price.low, price.mid, 
+    //           price.volume, price.bidSize, price.bidPrice, price.askSize, price.askPrice));
+        
+    //       return res;
+    //   }));
+
+    return forkJoin([news$]);
 
   }
+
   
 }

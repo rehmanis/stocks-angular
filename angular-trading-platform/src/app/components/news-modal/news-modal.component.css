@@ -1,0 +1,21 @@
+.news-item img {
+    width: 80px;
+    height: 90px;
+    object-fit: cover;
+    object-position: 50% 50%; 
+}
+
+.news-item {
+    display: flex; 
+    flex-direction: row;
+    flex: 1;
+    /* vertically align the each news item */
+    /* align-items: center;  */
+    margin-top: 1em;
+    /* margin-bottom: 0.3em; */
+    padding: 1em;
+    cursor: pointer;
+
+}
+
+
