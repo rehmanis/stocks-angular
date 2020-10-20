@@ -1,4 +1,3 @@
-
 <div>
     <div class="row card-deck">
         <div class="col-sm-6 align-items-stretch d-flex" *ngFor="let news of companyNews">
@@ -35,8 +34,22 @@
         </p>
     </div>
     <div class="modal-footer">
-        <div class="" attr.data-href="{{ currNews.url }}" data-layout="button_count" data-size="small"><a target="_blank" href="{{ 'https://www.facebook.com/sharer/sharer.php?u=' +  currNews.encodedUrl + '&amp;src=sdkpreparse'}}" class="fb-xfbml-parse-ignore">Share</a></div>
-        <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Save</button>
+        <div class="col mr-auto d-flex align-items-stretch flex-column p-2 border bg-sucess">
+            <div class=""> Share</div>
+            <div class="d-flex flex-row">
+                <div class="">
+                    <a target="_blank" href="{{ 'https://twitter.com/intent/tweet?text=' + currNews.encodedTitle  + ' %20' + currNews.encodedUrl }}" class="twitter-share-button" data-show-count="false">
+                        <i class="fa fa-3x fa-twitter"></i>
+                    </a>
+                    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                </div>
+                <div class="ml-2" attr.data-href="{{ currNews.url }}" data-layout="button_count" data-size="small">
+                    <a target="_blank" href="{{ 'https://www.facebook.com/sharer/sharer.php?u=' +  currNews.encodedUrl + '&amp;src=sdkpreparse'}}" class="fb-xfbml-parse-ignore">
+                        <i class="fa fa-facebook-official fa-3x" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 </ng-template>
     

@@ -22,7 +22,7 @@ import { DetailsComponent } from './components/details/details.component';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { NewsModalComponent } from './components/news-modal/news-modal.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
+// import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 
 @NgModule({
@@ -47,7 +47,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MatInputModule,
     MatTabsModule,
     HighchartsChartModule,
-    NgbModule
+    NgbModule,
+    // AngularFontAwesomeModule
   ],
   
   providers: [],

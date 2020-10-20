@@ -1,6 +1,7 @@
 export class News {
 
     public encodedUrl: string;
+    public encodedTitle: string;
 
     constructor(
         public url: string, 
@@ -12,6 +13,7 @@ export class News {
 
             this.publishedAt = this.formateDate(publishedAt);
             this.encodedUrl = encodeURIComponent(url);
+            this.encodedTitle = encodeURIComponent(title);
 
     }
 

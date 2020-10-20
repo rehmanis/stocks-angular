@@ -51,7 +51,7 @@ router.get('/detail/:ticker', function(req, res, next) {
 });
 
 
-/* Get the details for the company */
+/* Get the company price data  */
 router.get('/price/:ticker', function(req, res, next) {
 
   price = {};
@@ -68,7 +68,7 @@ router.get('/price/:ticker', function(req, res, next) {
   });
 });
 
-/* Get the details for the company */
+/* Get the daily chart data */
 router.get('/chart/daily/:ticker/:startDate', function(req, res, next) {
 
   dailyChart = {};
@@ -83,10 +83,100 @@ router.get('/chart/daily/:ticker/:startDate', function(req, res, next) {
     dailyChart.success = true;
     res.send(dailyChart)
   });
-
-  
-
 });
+
+
+/* Get the company news data  */
+router.get('/news/:ticker', function(req, res, next) {
+
+  news = {};
+  ticker = req.params.ticker;
+  console.log(`\nrequesting news ${ticker}\n`);
+
+  fetch(`https://newsapi.org/v2/everything?apiKey=02b9e74dc8a54b8cb99ef52fa07cd062&q=${ticker}`)
+  .then(res => res.json())
+  .then(function(data) {
+    // console.log(data.articles);
+    news.results = processNews(data.articles);
+    news.success = true;
+    console.log(news)
+    res.send(news)
+  });
+});
+
+
+/* Get the daily chart data */
+router.get('/chart/historical/:ticker/:startDate', function(req, res, next) {
+
+  histChart = {};
+  ticker = req.params.ticker;
+  startDate = req.params.startDate;
+  console.log(`\nrequesting company historical chart for ${ticker} from ${startDate}\n`);
+
+  fetch(`https://api.tiingo.com/tiingo/daily/${ticker}/prices?startDate=${startDate}&resampleFreq=daily&token=8bb5d357e4616c9938090e9e3de7acefc38d224b`)
+  .then(res => res.json())
+  .then(function(data) {
+    histChart.results = data;
+    histChart.success = true;
+    val = processHistChart(data)
+    console.log(val.volume);
+    console.log(val.ohlc);
+    res.send(histChart)
+  });
+});
+
+
+
+function processHistChart(data) {
+
+  results = {
+    volume: [],
+    ohlc: []
+  };
+
+  for (var i = 0; i < data.length; i++){
+    results.volume.push([
+        new Date(data[i].date).getTime(),
+        data[i].volume
+    ]);
+
+    results.ohlc.push([
+      new Date(data[i].date).getTime(),
+      data[i].open,
+      data[i].high,
+      data[i].low,
+      data[i].close
+    ])
+
+  }
+
+  return results;
+
+}
+
+
+function processNews(data) {
+
+  results = [];
+
+  for (var i = 0; i < data.length; i++){
+    if (data[i].url && data[i].title && data[i].description && data[i].source.name 
+      && data[i].urlToImage && data[i].publishedAt) {
+        results.push({
+          url: data[i].url,
+          title: data[i].title,
+          description: data[i].description,
+          source: data[i].source.name,
+          urlToImage: data[i].urlToImage,
+          publishedAt: data[i].publishedAt
+      });
+
+    }
+  }
+
+  return results;
+
+}
 
 
 function processData(data) {

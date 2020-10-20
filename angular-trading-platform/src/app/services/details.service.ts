@@ -8,6 +8,7 @@ import { CompanyPrice, PriceResponse } from 'src/app/models/CompanyPrice'
 import { CompanyDetails, DetailsResponse} from 'src/app/models/CompanyDetails'
 import { DailyChart, DailyChartResponse } from '../models/DailyChart';
 import { News, NewsResponse } from '../models/News';
+import { HistChart, HistChartResponse } from '../models/HistChart';
 
 @Injectable({
   providedIn: 'root'
@@ -60,7 +61,7 @@ export class DetailsService {
   }
 
 
-  public getNewsAndHisChart(ticker: string): Observable<any[]> {
+  public getNewsAndHisChart(ticker: string, startDate: string): Observable<any[]> {
 
     let news$ = this.http.get<NewsResponse>(this.rootURL + '/news/' + ticker)
       .pipe(
@@ -73,18 +74,16 @@ export class DetailsService {
       }));
 
 
-    // let price$ = this.http.get(this.rootURL + '/price/' + ticker)
-    //   .pipe(
-    //     tap( (res: PriceResponse) => {
-    //       res.results = res.results.map(
-    //         price => new CompanyPrice(price.ticker, price.timestamp, price.last, 
-    //           price.prevClose, price.open, price.high, price.low, price.mid, 
-    //           price.volume, price.bidSize, price.bidPrice, price.askSize, price.askPrice));
+    let hist$ = this.http.get(this.rootURL + '/chart/historical/' + ticker + '/' + startDate)
+      .pipe(
+        tap( (res: HistChartResponse) => {
+          res.results = res.results.map(
+            data => new HistChart(data.date, data.open, data.high, data.low, data.close, data.volume));
         
-    //       return res;
-    //   }));
+          return res;
+      }));
 
-    return forkJoin([news$]);
+    return forkJoin([news$, hist$]);
 
   }
 
