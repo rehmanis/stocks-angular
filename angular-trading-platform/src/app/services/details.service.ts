@@ -24,6 +24,16 @@ export class DetailsService {
     let detail$ = this.http.get(this.rootURL + '/detail/' + ticker)
       .pipe(
         tap( (res: DetailsResponse) => {
+
+          // console.log(res);
+
+          if (!res.success) {
+            res.results = [];
+            // console.log("errror detail");
+            return res;
+          }
+
+
           res.results = res.results.map(
             detail => new CompanyDetails(detail.ticker, detail.name, 
                 detail.description, detail.startDate, detail.exchangeCode));
@@ -35,6 +45,16 @@ export class DetailsService {
     let price$ = this.http.get(this.rootURL + '/price/' + ticker)
       .pipe(
         tap( (res: PriceResponse) => {
+
+          // console.log(res.results);
+
+          if (!res.success) {
+            res.results = [];
+            // console.log("errror price");
+            return res;
+          }
+
+
           res.results = res.results.map(
             price => new CompanyPrice(price.ticker, price.timestamp, price.last, 
               price.prevClose, price.open, price.high, price.low, price.mid, 

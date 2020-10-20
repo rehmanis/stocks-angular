@@ -14,4 +14,5 @@ export class CompanyDetails {
 
 export interface DetailsResponse {
     results: CompanyDetails[];
+    success: boolean;
 }

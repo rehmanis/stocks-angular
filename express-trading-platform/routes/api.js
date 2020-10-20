@@ -42,8 +42,19 @@ router.get('/detail/:ticker', function(req, res, next) {
   fetch(`https://api.tiingo.com/tiingo/daily/${ticker}?token=8bb5d357e4616c9938090e9e3de7acefc38d224b`)
   .then(res => res.json())
   .then(function(data) {
-    details.results = [data];
-    details.success = true;
+
+    // console.log(data.detail);
+    // console.log(data);
+
+    if (!data || data.detail){
+      details.results = [];
+      details.success = false;
+    }else{
+      details.results = [data];
+      details.success = true;
+    }
+
+
     console.log(details)
     res.send(details)
   });
@@ -61,9 +72,16 @@ router.get('/price/:ticker', function(req, res, next) {
   fetch(`https://api.tiingo.com/iex/?tickers=${ticker}&token=8bb5d357e4616c9938090e9e3de7acefc38d224b`)
   .then(res => res.json())
   .then(function(data) {
-    price.results = data;
-    price.success = true;
-    console.log(price)
+
+    if (!data){
+      price.results = [];
+      price.success = false;
+    }else{
+      price.results = data;
+      price.success = true;
+    }
+
+    // console.log(price)
     res.send(price)
   });
 });
@@ -79,8 +97,16 @@ router.get('/chart/daily/:ticker/:startDate', function(req, res, next) {
   fetch(`https://api.tiingo.com/iex/${ticker}/prices?startDate=${startDate}&resampleFreq=4min&token=8bb5d357e4616c9938090e9e3de7acefc38d224b`)
   .then(res => res.json())
   .then(function(data) {
-    dailyChart.results = data;
-    dailyChart.success = true;
+
+    if (data.details){
+      dailyChart.results = [];
+      dailyChart.success = false;
+    }else{
+      dailyChart.results = data;
+      dailyChart.success = true;
+    }
+    
+
     res.send(dailyChart)
   });
 });
@@ -99,7 +125,7 @@ router.get('/news/:ticker', function(req, res, next) {
     // console.log(data.articles);
     news.results = processNews(data.articles);
     news.success = true;
-    console.log(news)
+    // console.log(news)
     res.send(news)
   });
 });
@@ -118,9 +144,9 @@ router.get('/chart/historical/:ticker/:startDate', function(req, res, next) {
   .then(function(data) {
     histChart.results = data;
     histChart.success = true;
-    val = processHistChart(data)
-    console.log(val.volume);
-    console.log(val.ohlc);
+    // val = processHistChart(data)
+    // console.log(val.volume);
+    // console.log(val.ohlc);
     res.send(histChart)
   });
 });

@@ -27,7 +27,10 @@ export class CompanyPrice {
 
         this.change = (last - prevClose);
         this.perChange = (this.change / prevClose * 100);
-        this.last = parseFloat(last.toFixed(2));
+
+        this.change = parseFloat(this.change.toFixed(2));
+        this.perChange = parseFloat(this.perChange.toFixed(2));
+ 
         this.dataDate = new Date(timestamp);
         this.currDate = new Date();
 
@@ -90,4 +93,5 @@ export class CompanyPrice {
 
 export interface PriceResponse {
     results: CompanyPrice[];
+    success: boolean;
 }

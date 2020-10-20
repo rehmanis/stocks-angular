@@ -1,10 +1,12 @@
 <div>
-    <div class="row card-deck">
-        <div class="col-sm-6 align-items-stretch d-flex" *ngFor="let news of companyNews">
-            <div class="card news-item bg-light" (click)="open(news, content)">
-                <img src="{{ news.urlToImage }}" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">{{ news.title }}</h5>
+    <div class="container">
+        <div class="row card-deck mt-4">
+            <div class="col-sm-6 align-items-stretch d-flex mb-3" *ngFor="let news of companyNews">
+                <div class="card news-item bg-light" (click)="open(news, content)">
+                    <img src="{{ news.urlToImage }}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title">{{ news.title }}</h5>
+                    </div>
                 </div>
             </div>
         </div>

@@ -36,6 +36,7 @@ export class DetailsComponent implements OnInit {
   isLoading = true;
   isChangePos = false;
   isChangeNeg = false;
+  isError = false;
 
 
   // High charts initialization
@@ -174,18 +175,24 @@ export class DetailsComponent implements OnInit {
 
     this.detailService.getCompanyDetails(this.ticker).subscribe ( responseList => {
 
+      this.isError = false;
+      this.isLoading = true;
+
       this.companyDetails = responseList[0].results;
       this.companyPrice = responseList[1].results;
+
+      if (this.companyDetails.length == 0 || this.companyPrice.length == 0){
+        console.log("Error")
+        this.isError = true;
+        return;
+      }
+
 
       if (this.companyPrice[0].change < 0) {
         this.isChangeNeg = true;
       }else if (this.companyPrice[0].change > 0) {
         this.isChangePos = true;
       }
-
-      this.companyPrice[0].change = parseFloat(this.companyPrice[0].change.toFixed(2));
-      this.companyPrice[0].perChange = parseFloat(this.companyPrice[0].perChange.toFixed(2));
-
 
       this.detailService.getDailyChart(this.ticker, this.companyPrice[0].timestamp.slice(0, 10)).subscribe(res => {
 
