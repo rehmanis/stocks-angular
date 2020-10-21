@@ -19,6 +19,40 @@ export class DetailsService {
 
   constructor(private http: HttpClient) {}
 
+  public getMultiCompanyDetails(tickers: Array<any>): Observable<any[]> {
+
+    let details$ = []
+
+    for (let i = 0; i < tickers.length; i++){
+
+      details$.push(
+
+        this.http.get(this.rootURL + '/detail/' + tickers[i])
+          .pipe(
+            tap( (res: DetailsResponse) => {
+
+              // console.log(res);
+
+              if (!res.success) {
+                res.results = [];
+                // console.log("errror detail");
+                return res;
+              }
+
+              res.results = res.results.map(
+                detail => new CompanyDetails(detail.ticker, detail.name, 
+                    detail.description, detail.startDate, detail.exchangeCode));
+            
+              return res;
+          }))
+      );
+
+    }
+
+    return forkJoin(details$);
+
+  }
+
   public getCompanyDetails(ticker: string): Observable<any[]> {
 
     let detail$ = this.http.get(this.rootURL + '/detail/' + ticker)

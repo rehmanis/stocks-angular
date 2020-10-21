@@ -37,6 +37,7 @@ export class DetailsComponent implements OnInit {
   isChangePos = false;
   isChangeNeg = false;
   isError = false;
+  isAddedToFav = false;
 
 
   // High charts initialization
@@ -170,7 +171,17 @@ export class DetailsComponent implements OnInit {
   ngOnInit(): void {
 
     this.route.paramMap.subscribe(params => {
-      this.ticker = params.get("ticker");
+      this.ticker = params.get("ticker").toUpperCase();
+      let watchlist = JSON.parse(localStorage.getItem("watchlist"));
+
+      console.log("printing watchlist: " + watchlist);
+      
+      if (watchlist){
+        console.log("printing isAddedToFav: " + watchlist[this.ticker]);
+        this.isAddedToFav = watchlist[this.ticker] || false;
+      }
+
+      console.log("printing isAddedToFav: " + this.isAddedToFav);
     })
 
     this.detailService.getCompanyDetails(this.ticker).subscribe ( responseList => {
@@ -236,9 +247,9 @@ export class DetailsComponent implements OnInit {
 
     this.chartOptionsHist.series[0]['data'] = this.histData.ohlc;
     this.chartOptionsHist.series[1]['data'] = this.histData.volumne;
-    this.chartOptionsHist.series[0]['name'] = this.ticker.toUpperCase();
+    this.chartOptionsHist.series[0]['name'] = this.ticker;
 
-    this.chartOptionsHist.title['text'] = '<h2>' + this.ticker.toUpperCase() + ' Historical</h2>';
+    this.chartOptionsHist.title['text'] = '<h2>' + this.ticker + ' Historical</h2>';
     this.updateFromInput = true;
  
   }
@@ -249,8 +260,8 @@ export class DetailsComponent implements OnInit {
     }
 
     this.chartOptionsDaily.series[0]['data'] = this.dailyChart;
-    this.chartOptionsDaily.series[0]['name'] = this.ticker.toUpperCase();
-    this.chartOptionsDaily.title['text'] = '<h2>' + this.ticker.toUpperCase() + '</h2>';
+    this.chartOptionsDaily.series[0]['name'] = this.ticker;
+    this.chartOptionsDaily.title['text'] = '<h2>' + this.ticker + '</h2>';
 
     if (this.isChangeNeg) {
       this.chartOptionsDaily.series[0].color = '#ff100d';
@@ -259,7 +270,27 @@ export class DetailsComponent implements OnInit {
     }else{
       this.chartOptionsDaily.series[0].color = '#000000';
     }
+  }
 
+  toggleWatchlist() {
+
+    if (this.isAddedToFav){
+
+      let watchlist = JSON.parse(localStorage.getItem("watchlist"));
+      delete watchlist[this.ticker];
+      localStorage.setItem("watchlist", JSON.stringify(watchlist));
+      this.isAddedToFav = false;
+      
+
+    }else{
+
+      let watchlist = JSON.parse(localStorage.getItem("watchlist")) || {};  // should be a dictionary
+      watchlist[this.ticker] = true;
+      console.log(watchlist);
+      localStorage.setItem("watchlist", JSON.stringify(watchlist));
+      this.isAddedToFav = true;
+
+    } 
 
   }
 

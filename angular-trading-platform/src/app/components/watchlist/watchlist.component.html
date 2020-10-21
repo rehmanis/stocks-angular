@@ -1,1 +1,14 @@
-<p>watchlist works!</p>
+<div>
+    <div *ngIf="isWatchListEmpty;">
+        <div class="container">
+            <div class="row">
+                <div class="col text-center alert alert-warning mt-5" role="alert">
+                    Currently you don't have any stock in your watchlist
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="!isWatchListEmpty;">
+
+    </div>
+</div>

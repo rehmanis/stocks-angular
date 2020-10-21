@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CompanyDetails} from 'src/app/models/CompanyDetails';
+import { DetailsService } from 'src/app/services/details.service';
 
 @Component({
   selector: 'app-watchlist',
@@ -7,9 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WatchlistComponent implements OnInit {
 
-  constructor() { }
+  isWatchListEmpty = true;
+  watchlist = JSON.parse(localStorage.getItem("watchlist")) || [];
+  watchlistDetails: CompanyDetails[];
+
+  constructor(private detailService: DetailsService) { }
 
   ngOnInit(): void {
+    this.detailService.getMultiCompanyDetails(this.watchlist).subscribe (responseList => {
+
+      for (let i = 0; i < responseList.length; i++){
+        this.watchlistDetails.push(responseList[i].results)
+      }
+
+    });
+
   }
 
 }
