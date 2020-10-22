@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import { Observable, forkJoin} from 'rxjs';
-import {tap} from 'rxjs/operators';
+import { Observable, forkJoin, from} from 'rxjs';
+import {concatMap, map, tap, toArray} from 'rxjs/operators';
 import { stringify } from 'querystring';
 
 import { CompanyPrice, PriceResponse } from 'src/app/models/CompanyPrice'
@@ -19,37 +19,40 @@ export class DetailsService {
 
   constructor(private http: HttpClient) {}
 
-  public getMultiCompanyDetails(tickers: Array<any>): Observable<any[]> {
 
-    let details$ = []
+  
+  getMultiCompanyInfo(tickers: string[], route: string): Observable<any>{
+    const prices$ = tickers.map((ticker: string) => this.http.get(this.rootURL + '/'+ route +'/' + ticker));
 
-    for (let i = 0; i < tickers.length; i++){
+    return forkJoin(prices$).pipe(
 
-      details$.push(
+      concatMap((result) => {
+          return from(result);
+      }),
+      
+      tap((res: any) => {
 
-        this.http.get(this.rootURL + '/detail/' + tickers[i])
-          .pipe(
-            tap( (res: DetailsResponse) => {
+        if (!res.success) {
+          res.results = [];
+          // console.log("errror detail");
+          return res;
+        }
 
-              // console.log(res);
-
-              if (!res.success) {
-                res.results = [];
-                // console.log("errror detail");
-                return res;
-              }
-
-              res.results = res.results.map(
-                detail => new CompanyDetails(detail.ticker, detail.name, 
-                    detail.description, detail.startDate, detail.exchangeCode));
-            
-              return res;
-          }))
-      );
-
-    }
-
-    return forkJoin(details$);
+        if (route == 'detail'){
+          res.results = res.results.map(
+            detail => new CompanyDetails(detail.ticker, detail.name, 
+                detail.description, detail.startDate, detail.exchangeCode));
+        }else{
+          res.results = res.results.map(
+            price => new CompanyPrice(price.ticker, price.timestamp, price.last, 
+              price.prevClose, price.open, price.high, price.low, price.mid, 
+              price.volume, price.bidSize, price.bidPrice, price.askSize, price.askPrice));
+        }
+      
+        return res;
+      }),
+      toArray()
+    )
 
   }
 

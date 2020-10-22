@@ -10,5 +10,78 @@
     </div>
     <div *ngIf="!isWatchListEmpty;">
 
+        <div class="container p-5">
+            <div class="row">
+                <div class='col mt'>
+                    <h1>My Watchlist</h1>
+                </div>
+            </div>
+            <div *ngIf="isLoading" class="is-loading spinner" layout="row" layout-align="center center">
+                <mat-spinner mode="indeterminate" diameter="60"></mat-spinner>
+            </div>
+            <ng-container *ngIf="!isLoading">
+                <div class="row" *ngFor="let item of watchlistData; let i = index"  >
+                    
+                        <div class="col-12 watchlist-item alert fade show border alert-light mb-3" [routerLink]="['/details', item.ticker]" >
+                            <div class="row">
+                                <div class="col">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="removeFromWatchList(i, $event)">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class='row bold'>
+                                <div class="col">
+                                    {{ item.ticker }}
+                                </div>
+                                <div class="col align-end" [ngClass]="{ 'positive': item.isChangePos , 'negative': item.isChangeNeg }">
+                                    {{ item.last }}
+                                </div>
+                            </div>
+                            <div class='row'>
+                                <div class="col">
+                                    {{ item.name }}
+                                </div>
+                                <div class="col align-end" [ngClass]="">
+                                    <span *ngIf="item.isChangePos" class="positive"> 
+                                        <svg width="0.8em" height="0.8em" viewBox="0 0 16 16" class="bi bi-caret-down-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M7.247 4.86l-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+                                        </svg>
+                                        {{ item.change }} ({{ item.perChange }} &#37;)
+                                    </span>
+                                    <span *ngIf="item.isChangeNeg" class="negative">
+                                        <svg width="0.8em" height="0.8em" viewBox="0 0 16 16" class="bi bi-caret-down-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                                        </svg>
+                                        {{ item.change }} ({{ item.perChange }} &#37;)
+                                    </span>
+                                    <span *ngIf="!item.isChangePos && !item.isChangeNeg"> 
+                                        {{ item.change }} ({{ item.perChange }} &#37;)
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+ 
+                </div>
+            </ng-container>
+        </div>
+
+
+
+
+
+        <!-- <div class="container">
+            <div class="row card-deck mt-4">
+                <div class="col-sm-6 align-items-stretch d-flex mb-3" *ngFor="let news of companyNews">
+                    <div class="card news-item bg-light" (click)="open(news, content)">
+                        <img src="{{ news.urlToImage }}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                          <h5 class="card-title">{{ news.title }}</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
     </div>
 </div>

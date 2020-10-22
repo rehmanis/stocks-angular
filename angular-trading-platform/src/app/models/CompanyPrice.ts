@@ -42,6 +42,8 @@ export class CompanyPrice {
         // console.log(this.timestamp);
         // console.log(this.dataDate.toString());
 
+        console.log(timestamp);
+
 
         this.dataDateStr = this.getDateStr(this.dataDate) + ' ' + this.getDateTimeStr(this.dataDate);
         this.currDateStr = this.getDateStr(this.currDate) + ' ' + this.getDateTimeStr(this.currDate);

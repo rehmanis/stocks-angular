@@ -30,5 +30,22 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 
 
+.spinner {
+    display: flex;
+    justify-content: center;
+    margin-top: 5%;
+}
+
+.align-end {
+    text-align: end;
+}
+
+.positive {
+    color: green;
+}
+
+.negative {
+    color: red;
+}
 
 

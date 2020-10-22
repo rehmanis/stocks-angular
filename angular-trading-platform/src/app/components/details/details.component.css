@@ -1,6 +1,4 @@
-.align-end {
-    text-align: end;
-}
+
 
 .row1 {
     margin-top: 20px;
@@ -24,13 +22,7 @@
     padding-bottom: 5px;
 }
 
-.positive {
-    color: green;
-}
 
-.negative {
-    color: red;
-}
 
 .market-status {
     text-align: center;
@@ -48,12 +40,6 @@
 .market-open {
     background-color:#d1eedb;
     color: #3e8672;
-}
-
-.spinner {
-    display: flex;
-    justify-content: center;
-    margin-top: 5%;
 }
 
 .star{
