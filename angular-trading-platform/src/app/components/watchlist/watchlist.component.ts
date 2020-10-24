@@ -12,7 +12,7 @@ import { DetailsService } from 'src/app/services/details.service';
 export class WatchlistComponent implements OnInit {
 
   isWatchListEmpty = true;
-  watchlist = Object.keys(JSON.parse(localStorage.getItem("watchlist"))) || [];
+  watchlist = [];
   watchlistCompDetail: CompanyDetails[] = [];
   watchlistCompPrice: CompanyPrice[] = [];
   watchlistData = []
@@ -21,6 +21,14 @@ export class WatchlistComponent implements OnInit {
   constructor(private detailService: DetailsService) { }
 
   ngOnInit(): void {
+
+    let watchlist = JSON.parse(localStorage.getItem("watchlist")) || {}
+
+    if (!Object.keys(watchlist).length){
+      localStorage.setItem("watchlist", JSON.stringify(watchlist));
+    }else{
+      this.watchlist = Object.keys(JSON.parse(localStorage.getItem("watchlist")));
+    }
 
     console.log(this.watchlist);
     this.watchlist.sort();
