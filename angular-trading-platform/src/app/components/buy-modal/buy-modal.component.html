@@ -1,7 +1,12 @@
 
 
 <div class="col">
-    <button class='btn btn-success' (click)="open(content)"> Buy</button>
+    <div *ngIf="isBuy; else sellBlock">
+        <button class='btn btn-success' (click)="open(content)"> Buy</button>
+    </div>
+    <ng-template #sellBlock>
+        <button class='btn btn-danger' (click)="open(content)"> Sell</button>
+    </ng-template>
 </div>
 
 
@@ -39,7 +44,13 @@
                 Total: {{ total }}
             </div>
             <div class="">
-                <button class='btn btn-success' (click)="buy()" (click)="c('buy click')" [disabled]="isDisabled"> Buy</button>
+                <div *ngIf="isBuy; else sellBlock">
+                    <button class='btn btn-success' (click)="buy()" (click)="c('buy click')" [disabled]="isDisabled">Buy</button>
+                </div>
+                <ng-template #sellBlock>
+                    <button class='btn btn-danger' (click)="sell()" (click)="c('buy click')" [disabled]="isDisabled">Sell</button>
+                </ng-template>
+                
             </div>
         </div>
 

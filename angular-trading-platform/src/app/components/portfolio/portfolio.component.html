@@ -19,7 +19,7 @@
                     <mat-spinner mode="indeterminate" diameter="60"></mat-spinner>
                 </div>
                 <ng-container *ngIf="!isLoading">
-                    <div class="row" *ngFor="let item of portfolioData">
+                    <div class="row" *ngFor="let item of portfolioData; let i = index">
                         <div class="col">
                             <div class="card mb-3">
                                 <div class="card-header">
@@ -108,13 +108,10 @@
                                     </div>
                                 </div>
                                 <div class="card-footer text-muted">
-                                    <div class="text-right">
-                                        <button class="btn btn-primary">
-                                            buy
-                                        </button>
-                                        <button class="btn btn-danger ml-3">
-                                            sell
-                                        </button>
+                                    <div class="d-flex flex-row-reverse">
+                                        
+                                        <app-buy-modal (itemBuyEvent)="updateData($event)" [companyPrice]="[portfolioCompPrice[i]]" [idx]="i" [isBuy]="true"></app-buy-modal>
+                                        <app-buy-modal (itemBuyEvent)="updateData($event)" [companyPrice]="[portfolioCompPrice[i]]" [idx]="i" [isBuy]="false"></app-buy-modal>
                                     </div>
                                 </div>
                               </div>

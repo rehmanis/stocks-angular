@@ -30,9 +30,9 @@ export class WatchlistComponent implements OnInit {
       this.watchlist = Object.keys(JSON.parse(localStorage.getItem("watchlist")));
     }
 
-    console.log(this.watchlist);
+    // console.log(this.watchlist);
     this.watchlist.sort();
-    console.log(this.watchlist);
+    // console.log(this.watchlist);
     this.isWatchListEmpty = (this.watchlist.length == 0);
 
     const observables = [
@@ -47,8 +47,8 @@ export class WatchlistComponent implements OnInit {
       this.watchlistCompPrice = resList[0].map((item : PriceResponse) => item.results[0]);
       this.watchlistCompDetail = resList[1].map((item : DetailsResponse)=> item.results[0]);
       this.updateDisplayData();
-      console.log(this.watchlistCompPrice)
-      console.log(this.watchlistData)
+      // console.log(this.watchlistCompPrice)
+      // console.log(this.watchlistData)
       this.isLoading = false;
     })
   }
