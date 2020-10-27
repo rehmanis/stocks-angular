@@ -1,21 +1,20 @@
 <div>
-    <div *ngIf="isWatchListEmpty;">
-        <div class="container">
-            <div class="row">
-                <div class="col text-center alert alert-warning mt-5" role="alert">
-                    Currently you don't have any stock in your watchlist
-                </div>
+    <div class="container">
+        <div class="row">
+            <div class='col mt-4'>
+                <h1>My Watchlist</h1>
             </div>
         </div>
-    </div>
-    <div *ngIf="!isWatchListEmpty;">
-
-        <div class="container p-5">
+        <div *ngIf="isWatchListEmpty;">
+        
             <div class="row">
-                <div class='col mt'>
-                    <h1>My Watchlist</h1>
+                <div class="col text-center alert alert-warning" role="alert">
+                    Currently you don't have any stock in your watchlist
                 </div>
-            </div>
+            </div>    
+        </div>
+        <div *ngIf="!isWatchListEmpty;">
+            
             <div *ngIf="isLoading" class="is-loading spinner" layout="row" layout-align="center center">
                 <mat-spinner mode="indeterminate" diameter="60"></mat-spinner>
             </div>
@@ -61,27 +60,12 @@
                                 </div>
                             </div>
                         </div>
- 
+    
                 </div>
             </ng-container>
+            
         </div>
 
-
-
-
-
-        <!-- <div class="container">
-            <div class="row card-deck mt-4">
-                <div class="col-sm-6 align-items-stretch d-flex mb-3" *ngFor="let news of companyNews">
-                    <div class="card news-item bg-light" (click)="open(news, content)">
-                        <img src="{{ news.urlToImage }}" class="card-img-top" alt="...">
-                        <div class="card-body">
-                          <h5 class="card-title">{{ news.title }}</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-
     </div>
+    
 </div>

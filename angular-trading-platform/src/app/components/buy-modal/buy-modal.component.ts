@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { last } from 'rxjs/operators';
 import { CompanyPrice } from 'src/app/models/CompanyPrice';
+import { AlertsService } from 'src/app/services/alerts.service';
 
 @Component({
   selector: 'app-buy-modal',
@@ -18,7 +19,7 @@ export class BuyModalComponent implements OnInit {
   total = 0
   isDisabled = true;
 
-  constructor(private modalService: NgbModal) { }
+  constructor(private modalService: NgbModal, private alertService: AlertsService) { }
 
   ngOnInit(): void {
   }
@@ -74,6 +75,8 @@ export class BuyModalComponent implements OnInit {
     localStorage.setItem("portfolio", JSON.stringify(portfolio));
       
     this.itemBuyEvent.emit(-1);
+    this.alertService.showBuyAlert(this.companyPrice[0].ticker);
+
 
   }
 

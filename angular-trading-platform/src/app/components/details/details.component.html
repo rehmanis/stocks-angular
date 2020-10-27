@@ -16,6 +16,41 @@
         </div>
         <ng-container *ngIf="!isLoading">
             <div class="container"> 
+                <div class="row">
+                    <div class="col">
+                        <div id="watchlist-alert">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div id="buy-alert">
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- <div *ngIf="isAlert">
+                    <div class="row">
+                        <div class="col">
+                            <div id="watchlist-alert" [ngClass]="{ 'alert-success': isAddedToFav , 'alert-danger': !isAddedToFav }" class="alert alert-dismissible fade show" role="alert">
+                                <div *ngIf="isAddedToFav; else removeFavBlock">
+                                    {{ companyDetails[0].ticker }}  added to the Watchlist.
+                                </div>
+                                <ng-template #removeFavBlock>
+                                    {{ companyDetails[0].ticker }}  removed from the Watchlist.
+                                </ng-template>                  
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+
+
                 <div class="row row1 align-items-center">
                     <div class="col">                  
                         {{ companyDetails[0].ticker }} 

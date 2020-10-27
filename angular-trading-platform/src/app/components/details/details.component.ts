@@ -11,6 +11,7 @@ import { HistChart } from 'src/app/models/HistChart';
 import Exporting from 'highcharts/modules/exporting';
 import IndicatorsCore from "highcharts/indicators/indicators";
 import vbp from 'highcharts/indicators/volume-by-price';
+import { AlertsService } from 'src/app/services/alerts.service';
 
 IndicatorsCore(Highcharts);
 vbp(Highcharts);
@@ -38,7 +39,6 @@ export class DetailsComponent implements OnInit {
   isChangeNeg = false;
   isError = false;
   isAddedToFav = false;
-
 
   // High charts initialization
   HighchartsDaily: typeof Highcharts = Highcharts;
@@ -166,7 +166,7 @@ export class DetailsComponent implements OnInit {
     }]
   }
 
-  constructor(private detailService: DetailsService, private route: ActivatedRoute) {}
+  constructor(private detailService: DetailsService, private alertService: AlertsService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
 
@@ -210,7 +210,6 @@ export class DetailsComponent implements OnInit {
         this.dailyChart = res.results;
         this.updateDailyChart();
         this.isLoading = false;
-        
       });
 
 
@@ -280,7 +279,7 @@ export class DetailsComponent implements OnInit {
       delete watchlist[this.ticker];
       localStorage.setItem("watchlist", JSON.stringify(watchlist));
       this.isAddedToFav = false;
-      
+      this.alertService.showWatchlistAlert(this.isAddedToFav, this.companyDetails[0].ticker);
 
     }else{
 
@@ -289,6 +288,7 @@ export class DetailsComponent implements OnInit {
       console.log(watchlist);
       localStorage.setItem("watchlist", JSON.stringify(watchlist));
       this.isAddedToFav = true;
+      this.alertService.showWatchlistAlert(this.isAddedToFav, this.companyDetails[0].ticker);
 
     } 
 
