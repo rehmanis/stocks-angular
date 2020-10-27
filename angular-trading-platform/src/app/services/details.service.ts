@@ -22,37 +22,72 @@ export class DetailsService {
 
   
   getMultiCompanyInfo(tickers: string[], route: string): Observable<any>{
-    const prices$ = tickers.map((ticker: string) => this.http.get(this.rootURL + '/'+ route +'/' + ticker));
+    // const prices$ = tickers.map((ticker: string) => this.http.get(this.rootURL + '/'+ route +'/' + ticker));
 
-    return forkJoin(prices$).pipe(
+    console.log(tickers.join(','));
 
-      concatMap((result) => {
-          return from(result);
-      }),
-      
-      tap((res: any) => {
+    return this.http.get(this.rootURL + '/'+ route +'/' + tickers.join(','))
+      .pipe(
 
-        if (!res.success) {
-          res.results = [];
-          // console.log("errror detail");
-          return res;
-        }
+        tap((res: any) => {
 
-        if (route == 'detail'){
-          res.results = res.results.map(
-            detail => new CompanyDetails(detail.ticker, detail.name, 
-                detail.description, detail.startDate, detail.exchangeCode));
-        }else{
+          if (!res.success) {
+            res.results = [];
+            // console.log("errror detail");
+            return res;
+          }
+  
           res.results = res.results.map(
             price => new CompanyPrice(price.ticker, price.timestamp, price.last, 
               price.prevClose, price.open, price.high, price.low, price.mid, 
               price.volume, price.bidSize, price.bidPrice, price.askSize, price.askPrice));
-        }
+          
+          res.results.sort((a, b) => (a.ticker > b.ticker) ? 1 : -1)
+        
+          return res;
+        }),
+      )
+
+
+    // const tickerCommaStr = tickers.join(',');
+
+    // .pipe(
+    //   tap( (res: DailyChartResponse) => {
+    //     res.results = res.results.map(
+    //       chartData => new DailyChart(chartData.date, chartData.close));
+
+    //     return res;
+    // }));  
+
+    // return forkJoin(prices$).pipe(
+
+    //   concatMap((result) => {
+    //       return from(result);
+    //   }),
       
-        return res;
-      }),
-      toArray()
-    )
+    //   tap((res: any) => {
+
+    //     if (!res.success) {
+    //       res.results = [];
+    //       // console.log("errror detail");
+    //       return res;
+    //     }
+
+    //     if (route == 'detail'){
+    //       res.results = res.results.map(
+    //         detail => new CompanyDetails(detail.ticker, detail.name, 
+    //             detail.description, detail.startDate, detail.exchangeCode));
+    //     }else{
+    //       res.results = res.results.map(
+    //         price => new CompanyPrice(price.ticker, price.timestamp, price.last, 
+    //           price.prevClose, price.open, price.high, price.low, price.mid, 
+    //           price.volume, price.bidSize, price.bidPrice, price.askSize, price.askPrice));
+    //     }
+      
+    //     return res;
+    //   }),
+    //   toArray()
+    // )
 
   }
 
@@ -118,7 +153,7 @@ export class DetailsService {
   }
 
 
-  public getNewsAndHisChart(ticker: string, startDate: string): Observable<any[]> {
+  public getNewsAndHisChart(ticker: string): Observable<any[]> {
 
     let news$ = this.http.get<NewsResponse>(this.rootURL + '/news/' + ticker)
       .pipe(
@@ -131,7 +166,7 @@ export class DetailsService {
       }));
 
 
-    let hist$ = this.http.get(this.rootURL + '/chart/historical/' + ticker + '/' + startDate)
+    let hist$ = this.http.get(this.rootURL + '/chart/historical/' + ticker)
       .pipe(
         tap( (res: HistChartResponse) => {
           res.results = res.results.map(

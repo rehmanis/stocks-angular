@@ -12,6 +12,7 @@ import Exporting from 'highcharts/modules/exporting';
 import IndicatorsCore from "highcharts/indicators/indicators";
 import vbp from 'highcharts/indicators/volume-by-price';
 import { AlertsService } from 'src/app/services/alerts.service';
+import { timer } from 'rxjs';
 
 IndicatorsCore(Highcharts);
 vbp(Highcharts);
@@ -176,6 +177,8 @@ export class DetailsComponent implements OnInit {
     }]
   }
 
+  interval;
+
   constructor(private detailService: DetailsService, private alertService: AlertsService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
@@ -194,43 +197,22 @@ export class DetailsComponent implements OnInit {
       console.log("printing isAddedToFav: " + this.isAddedToFav);
     })
 
-    this.detailService.getCompanyDetails(this.ticker).subscribe ( responseList => {
+    // this.interval = setInterval(() => {
+    //   this.update();
+    // }, 15000);
 
-      this.isError = false;
-      this.isLoading = true;
+    this.isError = false;
+    this.isLoading = true;
+    this.update();
 
-      this.companyDetails = responseList[0].results;
-      this.companyPrice = responseList[1].results;
+    
+    this.detailService.getNewsAndHisChart(this.ticker).subscribe ( res => {
 
-      if (this.companyDetails.length == 0 || this.companyPrice.length == 0){
-        console.log("Error")
-        this.isError = true;
-        return;
-      }
+      this.companyNews = res[0].results;
+      // console.log(this.companyNews);
+      this.histChart = res[1].results;
+      this.updateHistChart();
 
-
-      if (this.companyPrice[0].change < 0) {
-        this.isChangeNeg = true;
-      }else if (this.companyPrice[0].change > 0) {
-        this.isChangePos = true;
-      }
-
-      this.detailService.getDailyChart(this.ticker, this.companyPrice[0].timestamp.slice(0, 10)).subscribe(res => {
-
-        this.dailyChart = res.results;
-        this.updateDailyChart();
-        this.isLoading = false;
-      });
-
-
-      this.detailService.getNewsAndHisChart(this.ticker, this.companyPrice[0].twoYearDateStr).subscribe ( res => {
-
-        this.companyNews = res[0].results;
-        // console.log(this.companyNews);
-        this.histChart = res[1].results;
-        this.updateHistChart();
-
-      });
     });
 
 
@@ -298,7 +280,7 @@ export class DetailsComponent implements OnInit {
     }else{
 
       let watchlist = JSON.parse(localStorage.getItem("watchlist")) || {};  // should be a dictionary
-      watchlist[this.ticker] = true;
+      watchlist[this.ticker] = this.companyDetails[0].name;
       console.log(watchlist);
       localStorage.setItem("watchlist", JSON.stringify(watchlist));
       this.isAddedToFav = true;
@@ -306,6 +288,37 @@ export class DetailsComponent implements OnInit {
 
     } 
 
+  }
+
+  update() {
+    console.log("\nI am here...............................\n")
+    this.detailService.getCompanyDetails(this.ticker).subscribe ( responseList => {
+
+
+
+      this.companyDetails = responseList[0].results;
+      this.companyPrice = responseList[1].results;
+
+      if (this.companyDetails.length == 0 || this.companyPrice.length == 0){
+        console.log("Error")
+        this.isError = true;
+        return;
+      }
+
+
+      if (this.companyPrice[0].change < 0) {
+        this.isChangeNeg = true;
+      }else if (this.companyPrice[0].change > 0) {
+        this.isChangePos = true;
+      }
+
+      this.detailService.getDailyChart(this.ticker, this.companyPrice[0].timestamp.slice(0, 10)).subscribe(res => {
+
+        this.dailyChart = res.results;
+        this.updateDailyChart();
+        this.isLoading = false;
+      });
+    });
   }
 
 }

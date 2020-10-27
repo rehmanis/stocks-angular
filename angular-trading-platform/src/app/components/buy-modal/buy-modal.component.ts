@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { last } from 'rxjs/operators';
+import { CompanyDetails } from 'src/app/models/CompanyDetails';
 import { CompanyPrice } from 'src/app/models/CompanyPrice';
 import { AlertsService } from 'src/app/services/alerts.service';
 
@@ -11,7 +12,8 @@ import { AlertsService } from 'src/app/services/alerts.service';
 })
 export class BuyModalComponent implements OnInit {
 
-  @Input() companyPrice: CompanyPrice[];
+  @Input() companyPrice: CompanyPrice[] = [];
+  @Input() companyDetail: CompanyDetails[] = [];
   @Input() isBuy: boolean;
   @Input() idx: number;
   @Output() itemBuyEvent = new EventEmitter<number>();
@@ -62,6 +64,14 @@ export class BuyModalComponent implements OnInit {
     var totQty = this.qty;
     var totCost = parseFloat((this.companyPrice[0].last * this.qty).toFixed(2));
 
+    var name;
+    if (this.companyDetail[0]){
+      name = this.companyDetail[0].name;
+    }else{
+      name = portfolio[this.companyPrice[0].ticker][2];
+    }
+    
+
 
     if (portfolio[this.companyPrice[0].ticker]){
       console.log(totQty + parseFloat(portfolio[this.companyPrice[0].ticker][0]));
@@ -70,7 +80,7 @@ export class BuyModalComponent implements OnInit {
     }
 
 
-    portfolio[this.companyPrice[0].ticker] = [totQty, totCost];
+    portfolio[this.companyPrice[0].ticker] = [totQty, totCost, name];
     console.log(portfolio);
     localStorage.setItem("portfolio", JSON.stringify(portfolio));
       
@@ -85,12 +95,13 @@ export class BuyModalComponent implements OnInit {
     var portfolio = JSON.parse(localStorage.getItem("portfolio"));
     var totQty = parseFloat(portfolio[this.companyPrice[0].ticker][0]) - this.qty;
     var totCost = +(this.companyPrice[0].last * this.qty);
+    var name = portfolio[this.companyPrice[0].ticker][2]
     let i = -1;
 
     // console.log(totQty + parseFloat(portfolio[this.companyPrice[0].ticker][0]));
     totCost = parseFloat((parseFloat(portfolio[this.companyPrice[0].ticker][1]) - totCost).toFixed(2));
 
-    portfolio[this.companyPrice[0].ticker] = [totQty, totCost];
+    portfolio[this.companyPrice[0].ticker] = [totQty, totCost, name];
 
     console.log(totQty);
     console.log(totCost);

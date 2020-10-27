@@ -12,7 +12,7 @@ import { DetailsService } from 'src/app/services/details.service';
 export class WatchlistComponent implements OnInit {
 
   isWatchListEmpty = true;
-  watchlist = [];
+  watchlist = JSON.parse(localStorage.getItem("watchlist")) || {};
   watchlistCompDetail: CompanyDetails[] = [];
   watchlistCompPrice: CompanyPrice[] = [];
   watchlistData = []
@@ -22,44 +22,34 @@ export class WatchlistComponent implements OnInit {
 
   ngOnInit(): void {
 
-    let watchlist = JSON.parse(localStorage.getItem("watchlist")) || {}
+    let watchlistKeys = Object.keys(this.watchlist); 
 
-    if (!Object.keys(watchlist).length){
-      localStorage.setItem("watchlist", JSON.stringify(watchlist));
-    }else{
-      this.watchlist = Object.keys(JSON.parse(localStorage.getItem("watchlist")));
+    watchlistKeys.sort();
+    console.log(watchlistKeys);
+    this.isWatchListEmpty = (watchlistKeys.length == 0);
+
+    if (this.isWatchListEmpty){
+      return;
     }
 
-    // console.log(this.watchlist);
-    this.watchlist.sort();
-    // console.log(this.watchlist);
-    this.isWatchListEmpty = (this.watchlist.length == 0);
+    const observables = this.detailService.getMultiCompanyInfo(watchlistKeys, 'price');
 
-    const observables = [
-      this.detailService.getMultiCompanyInfo(this.watchlist, 'price'),
-      this.detailService.getMultiCompanyInfo(this.watchlist, 'detail')
-    ];
+    this.detailService.getMultiCompanyInfo(watchlistKeys, 'price').subscribe(res => {
 
-    forkJoin(
-      observables
-    ).subscribe((resList) => {
-
-      this.watchlistCompPrice = resList[0].map((item : PriceResponse) => item.results[0]);
-      this.watchlistCompDetail = resList[1].map((item : DetailsResponse)=> item.results[0]);
+      this.watchlistCompPrice = res.results.map((item : PriceResponse) => item);
       this.updateDisplayData();
-      // console.log(this.watchlistCompPrice)
-      // console.log(this.watchlistData)
       this.isLoading = false;
+      console.log(this.watchlistCompPrice);
     })
   }
 
   updateDisplayData(){
 
-    for (var i = 0; i < this.watchlistCompDetail.length; i++) {
+    for (var i = 0; i < this.watchlistCompPrice.length; i++) {
 
       this.watchlistData.push({
-          name: this.watchlistCompDetail[i].name,
-          ticker: this.watchlistCompDetail[i].ticker,
+          name: this.watchlist[this.watchlistCompPrice[i].ticker],
+          ticker: this.watchlistCompPrice[i].ticker,
           last : this.watchlistCompPrice[i].last,
           change: this.watchlistCompPrice[i].change,
           perChange: this.watchlistCompPrice[i].perChange,
@@ -67,7 +57,6 @@ export class WatchlistComponent implements OnInit {
           isChangePos: this.watchlistCompPrice[i].change > 0,
         });
     }
-
   }
 
   removeFromWatchList(index, e){
