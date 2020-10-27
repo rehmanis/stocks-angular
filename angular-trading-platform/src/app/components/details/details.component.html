@@ -94,116 +94,67 @@
                             <mat-tab label="Summary">
                                 <div class="container">
                                     <div class="row">
-                                        <div class="col pt-4">
-                                            <!-- <table class="">
-                                                <tbody>
-                                                  <tr>
-                                                    <td>High Price</td>
-                                                    <td colspan="4">{{ companyPrice[0].high }}</td>
-                                                    <td>Mid Price:</td>
-                                                    <td>{{ companyPrice[0].mid }}</td>
-                                                  </tr>
-                                                  <tr>
-                                                    <td>Low Price:</td>
-                                                    <td colspan="4">{{ companyPrice[0].low }}</td>
-                                                    <td>Ask Price:</td>
-                                                    <td>{{ companyPrice[0].askPrice }}</td>
-                                                  </tr>
-                                                  <tr>
-                                                    <td>Open Price:</td>
-                                                    <td>{{ companyPrice[0].low }}</td>
-                                                    <td colspan="4">Ask Size:</td>
-                                                    <td>{{ companyPrice[0].askSize }}</td>
-                                                  </tr>
-                                                  <tr>
-                                                    <td>Prev. Close: </td>
-                                                    <td colspan="4">{{ companyPrice[0].prevClose }}</td>
-                                                    <td>Bid Price:</td>
-                                                    <td>{{ companyPrice[0].bidSize }}</td>
-                                                  </tr>
-                                                </tbody>
-                                              </table> -->
-                                              
-                                            <div class="row">
-                                                <div class="col bg-success">
-                                                    High Price:
+                                        <div class="col">
+                                            <div class="row p-4">
+                                                <div class="col d-flex justify-content-center">
+                                                    <table class="">
+                                                        <tbody>
+                                                          <tr>
+                                                            <td class="">High Price</td>
+                                                            <td>{{ companyPrice[0].high }}</td>
+                                                          </tr>
+                                                          <tr>
+                                                            <td>Low Price:</td>
+                                                            <td>{{ companyPrice[0].low }}</td>
+                                                          </tr>
+                                                          <tr>
+                                                            <td>Open Price:</td>
+                                                            <td>{{ companyPrice[0].open }}</td>
+                                                          </tr>
+                                                          <tr>
+                                                            <td>Prev. Close: </td>
+                                                            <td>{{ companyPrice[0].prevClose }}</td>
+                                                          </tr>
+                                                        </tbody>
+                                                    </table>
+
                                                 </div>
-                                                <div class="col">
-                                                    {{ companyPrice[0].high }}
-                                                </div>
-                                                <div class="col">
-                                                    Mid Price:
-                                                </div>
-                                                <div class="col">
-                                                    {{ companyPrice[0].mid }}
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col">
-                                                    Low Price: 
-                                                </div>
-                                                <div class="col">
-                                                    {{ companyPrice[0].low }}
-                                                </div>
-                                                <div class="col">
-                                                    Ask Price:
-                                                </div>
-                                                <div class="col">
-                                                    {{ companyPrice[0].askPrice }}
+                                                <div class="col d-flex justify-content-center">
+                                                    <table class="" *ngIf="companyPrice[0].isMarketOpen">
+                                                        <tbody>
+                                                          <tr>
+                                                            <td>Mid Price:</td>
+                                                            <td>{{ companyPrice[0].mid }}</td>
+                                                          </tr>
+                                                          <tr>
+                                                            <td>Ask Price:</td>
+                                                            <td>{{ companyPrice[0].askPrice }}</td>
+                                                          </tr>
+                                                          <tr>
+                                                            <td>Ask Size:</td>
+                                                            <td>{{ companyPrice[0].askSize }}</td>
+                                                          </tr>
+                                                          <tr>
+                                                            <td>Bid Price:</td>
+                                                            <td>{{ companyPrice[0].bidSize }}</td>
+                                                          </tr>
+                                                        </tbody>
+                                                    </table>
+
                                                 </div>
                                             </div>
-                                            <div class="row">
-                                                <div class="col">
-                                                    Open Price: 
-                                                </div>
-                                                <div class="col">
-                                                    {{ companyPrice[0].open }}
-                                                </div>
-                                                <div class="col">
-                                                    Ask Size:
-                                                </div>
-                                                <div class="col">
-                                                    {{ companyPrice[0].askSize }}
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col">
-                                                    Prev. Close: 
-                                                </div>
-                                                <div class="col">
-                                                    {{ companyPrice[0].prevClose }}
-                                                </div>
-                                                <div class="col">
-                                                    Bid Price:
-                                                </div>
-                                                <div class="col">
-                                                    {{ companyPrice[0].bidPrice }}
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col">
-                                                    Volume: 
-                                                </div>
-                                                <div class="col">
-                                                    {{ companyPrice[0].volume }}
-                                                </div>
-                                                <div class="col">
-                                                    Bid Size:
-                                                </div>
-                                                <div class="col">
-                                                    {{ companyPrice[0].bidSize }}
-                                                </div>
-                                            </div>
-                                            <div class="row price-details">
-                                                <div class='col bg-warning'>
-                                                    <h2>Company's Description</h2>
+                                            <div class="row p-2">
+                                                <div class='col col d-flex justify-content-center'>
+                                                    <h2>
+                                                        Company's Description
+                                                    </h2>
     
                                                 </div>
                                                 <!-- <h2 class="col bg-success">
                                                     Company's Description
                                                 </h2> -->
                                             </div>
-                                            <div class="row">
+                                            <div class="row py-2">
                                                 <div class="col">
                                                     Start Date: {{ companyDetails[0].startDate }}
                                                 </div>

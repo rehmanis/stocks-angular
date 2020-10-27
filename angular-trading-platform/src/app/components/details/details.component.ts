@@ -44,6 +44,16 @@ export class DetailsComponent implements OnInit {
   HighchartsDaily: typeof Highcharts = Highcharts;
   chartConstructor: string = 'chart'; // optional string, defaults to 'chart'
   chartOptionsDaily: Highcharts.Options = {
+
+    navigator: {
+    
+      series: [{
+          /* fillOpacity: 0.05, */
+          fillOpacity: 1.0,
+          color: '',
+      }]
+  },
+
     series: [
       {
         type: 'spline',
@@ -262,12 +272,16 @@ export class DetailsComponent implements OnInit {
     this.chartOptionsDaily.series[0]['name'] = this.ticker;
     this.chartOptionsDaily.title['text'] = '<h2>' + this.ticker + '</h2>';
 
+    
     if (this.isChangeNeg) {
-      this.chartOptionsDaily.series[0].color = '#ff100d';
+      this.chartOptionsDaily.series[0].color = 'red';
+      this.chartOptionsDaily.navigator.series[0].color = 'red';
     }else if (this.isChangePos){
-      this.chartOptionsDaily.series[0].color = '#00821a';
+      this.chartOptionsDaily.series[0].color = 'green';
+      this.chartOptionsDaily.navigator.series[0].color = 'green';
     }else{
-      this.chartOptionsDaily.series[0].color = '#000000';
+      this.chartOptionsDaily.series[0].color = 'black';
+      this.chartOptionsDaily.navigator.series[0].color = 'black';
     }
   }
 
