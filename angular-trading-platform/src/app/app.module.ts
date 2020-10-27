@@ -25,6 +25,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BuyModalComponent } from './components/buy-modal/buy-modal.component';
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
 // import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import * as $ from 'jquery';
 
 
 @NgModule({

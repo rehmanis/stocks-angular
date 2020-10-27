@@ -25,7 +25,7 @@ export class AlertsService {
     }
 
     document.querySelector("#watchlist-alert").innerHTML = (
-    '<div class=" mt-4 text-center alert alert-dismissible fade show ' + alertType + '" role="alert">' +
+    '<div class="text-center alert alert-dismissible fade show ' + alertType + '" role="alert">' +
       alertText + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"> \
         <span aria-hidden="true">&times;</span> \
       </button> \
@@ -34,7 +34,7 @@ export class AlertsService {
     this.watchlistTimer = setTimeout(function () { 
   
       // Closing the alert 
-      $('#watchlist-alert .' + alertType).alert('close'); 
+      (<any>$('#watchlist-alert .' + alertType)).alert('close'); 
     }, 5000); 
   }
 
@@ -54,7 +54,7 @@ export class AlertsService {
 
 
     document.querySelector("#buy-alert").innerHTML = (
-    '<div class=" mt-4 text-center alert alert-dismissible fade show ' + alertType + '" role="alert">' +
+    '<div class="text-center alert alert-dismissible fade show ' + alertType + '" role="alert">' +
       alertText + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"> \
         <span aria-hidden="true">&times;</span> \
       </button> \
@@ -63,7 +63,7 @@ export class AlertsService {
     this.buyTimer = setTimeout(function () { 
   
       // Closing the alert 
-      $('#buy-alert .' + alertType).alert('close'); 
+      (<any>$('#buy-alert .' + alertType)).alert('close'); 
     }, 5000); 
   }
 
