@@ -94,13 +94,13 @@
                             <mat-tab label="Summary">
                                 <div class="container">
                                     <div class="row">
-                                        <div class="col">
+                                        <div class="col-12 col-md-6">
                                             <div class="row p-4">
                                                 <div class="col d-flex justify-content-center">
                                                     <table class="">
                                                         <tbody>
                                                           <tr>
-                                                            <td class="">High Price</td>
+                                                            <td>High Price:</td>
                                                             <td>{{ companyPrice[0].high }}</td>
                                                           </tr>
                                                           <tr>
@@ -114,6 +114,10 @@
                                                           <tr>
                                                             <td>Prev. Close: </td>
                                                             <td>{{ companyPrice[0].prevClose }}</td>
+                                                          </tr>
+                                                          <tr>
+                                                            <td>Volume: </td>
+                                                            <td>{{ companyPrice[0].volume }}</td>
                                                           </tr>
                                                         </tbody>
                                                     </table>
@@ -136,6 +140,10 @@
                                                           </tr>
                                                           <tr>
                                                             <td>Bid Price:</td>
+                                                            <td>{{ companyPrice[0].bidPrice }}</td>
+                                                          </tr>
+                                                          <tr>
+                                                            <td>Bid Size:</td>
                                                             <td>{{ companyPrice[0].bidSize }}</td>
                                                           </tr>
                                                         </tbody>
@@ -165,7 +173,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col">
+                                        <div class="col-12 col-md-6">
                                             <highcharts-chart 
                                                 [Highcharts]="HighchartsDaily"
                                                 [options]="chartOptionsDaily"

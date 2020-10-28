@@ -19,7 +19,7 @@
                 <mat-spinner mode="indeterminate" diameter="60"></mat-spinner>
             </div>
             <ng-container *ngIf="!isLoading">
-                <div class="row" *ngFor="let item of watchlistData; let i = index"  >
+                <div class="px-4 px-sm-0 row" *ngFor="let item of watchlistData; let i = index"  >
                     
                         <div class="col-12 watchlist-item alert fade show border alert-light mb-3" [routerLink]="['/details', item.ticker]" >
                             <div class="row">
