@@ -34,13 +34,6 @@ export class CompanyPrice {
         this.dataDate = new Date(timestamp);
         this.currDate = new Date();
 
-        // const dateTwoYears = new Date();
-        // dateTwoYears.setFullYear(dateTwoYears.getFullYear() - 2);
-        // this.twoYearDateStr = this.getDateStr(dateTwoYears);
-
-        // console.log(this.currDate.toString());
-        // console.log(this.timestamp);
-        // console.log(this.dataDate.toString());
 
         console.log(timestamp);
 
