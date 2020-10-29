@@ -1,13 +1,13 @@
 {
   "name": "angular-trading-platform",
   "version": "0.0.0",
+
+  "engines": {
+    "node": ">=12.0.0"
+  },
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "start": "node ./bin/www",
+    "devstart": "nodemon ./bin/www"
   },
   "private": true,
   "dependencies": {
@@ -35,7 +35,15 @@
     "rxjs": "~6.6.0",
     "save": "^2.4.0",
     "tslib": "^2.0.0",
-    "zone.js": "~0.10.2"
+    "zone.js": "~0.10.2",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "morgan": "~1.9.1",
+    "node-fetch": "^2.6.1",
+    "node-fetch-npm": "^2.0.4",
+    "pug": "2.0.0-beta11"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1001.6",
