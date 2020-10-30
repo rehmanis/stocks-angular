@@ -52,8 +52,13 @@ export class TickerSearchComponent implements OnInit {
 
   onSubmit(tickerVal: string) {
     // Process checkout data here
+    // console.log(tickerVal.length);
+    if (tickerVal.length == 0){
+      return;
+    }
+
     this.router.navigateByUrl('details/' + tickerVal);
-    console.log('Your request has been submitted', tickerVal);
+    // console.log('Your request has been submitted', tickerVal);
     
   }
 

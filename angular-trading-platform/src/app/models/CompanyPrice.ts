@@ -35,16 +35,16 @@ export class CompanyPrice {
         this.currDate = new Date();
 
 
-        console.log(timestamp);
+        // console.log(timestamp);
 
 
         this.dataDateStr = this.getDateStr(this.dataDate) + ' ' + this.getDateTimeStr(this.dataDate);
         this.currDateStr = this.getDateStr(this.currDate) + ' ' + this.getDateTimeStr(this.currDate);
 
-        console.log(this.currDate);
-        console.log(this.dataDate);
-        console.log((this.currDate - this.dataDate));
-        console.log((this.currDate - this.dataDate) < 60*1000);
+        // console.log(this.currDate);
+        // console.log(this.dataDate);
+        // console.log((this.currDate - this.dataDate));
+        // console.log((this.currDate - this.dataDate) < 60*1000);
         
 
         if ((this.currDate - this.dataDate) < 60000) {
@@ -52,7 +52,7 @@ export class CompanyPrice {
             this.isMarketOpen = true;
         }
 
-        console.log(this.isMarketOpen);
+        // console.log(this.isMarketOpen);
 
     }
 

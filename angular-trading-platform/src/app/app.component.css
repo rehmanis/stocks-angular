@@ -1,14 +1,20 @@
-/* footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background-color: 	#dcdcdc;
-    overflow: auto;
-} */
-
 .footer {
 
     background-color: 	#dcdcdc;
     bottom: 0;
-
 }
+
+
+.active-route {
+    border:2px solid #ded6fb;
+    border-radius: 10px;
+}
+
+.nav-item a {
+    color: #9f8cfa ;
+}
+
+.active-route, .navbar-brand {
+    color: #ded6fb !important;
+}
+

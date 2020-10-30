@@ -24,7 +24,7 @@ export class DetailsService {
   getMultiCompanyInfo(tickers: string[], route: string): Observable<any>{
     // const prices$ = tickers.map((ticker: string) => this.http.get(this.rootURL + '/'+ route +'/' + ticker));
 
-    console.log(tickers.join(','));
+    // console.log(tickers.join(','));
 
     return this.http.get(this.rootURL + '/'+ route +'/' + tickers.join(','))
       .pipe(

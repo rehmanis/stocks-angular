@@ -18,18 +18,22 @@
 
 /* } */
 
+.card {
+    cursor: pointer;
+}
 
-@media (min-width: 768px) { 
+
+/* @media (min-width: 768px) { 
 
     .news-item img {
         width: 80px;
         height: 90px;
         object-fit: cover;
         object-position: 50% 50%; 
-    
+        
     }
 
 
- }
+ } */
 
 

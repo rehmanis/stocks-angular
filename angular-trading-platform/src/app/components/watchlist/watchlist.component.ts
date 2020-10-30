@@ -25,7 +25,7 @@ export class WatchlistComponent implements OnInit {
     let watchlistKeys = Object.keys(this.watchlist); 
 
     watchlistKeys.sort();
-    console.log(watchlistKeys);
+    // console.log(watchlistKeys);
     this.isWatchListEmpty = (watchlistKeys.length == 0);
 
     if (this.isWatchListEmpty){
@@ -39,7 +39,7 @@ export class WatchlistComponent implements OnInit {
       this.watchlistCompPrice = res.results.map((item : PriceResponse) => item);
       this.updateDisplayData();
       this.isLoading = false;
-      console.log(this.watchlistCompPrice);
+      // console.log(this.watchlistCompPrice);
     })
   }
 

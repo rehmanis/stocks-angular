@@ -13,7 +13,7 @@
       <form class="form-container" [formGroup]='searchForm' (ngSubmit)="onSubmit(searchBar.value)">
         <div class="search-container p-1 px-3 col-xs-2">
           <div class="input-group">
-            <input  matInput formControlName='userInput' #searchBar type="text" class="border-0" placeholder="Enter stock name" [matAutocomplete]="auto" aria-label="Stock ticker name" aria-describedby="basic-addon2">
+            <input formControlName='userInput' #searchBar type="text" class="border-0" placeholder="Enter stock name" [matAutocomplete]="auto" aria-label="Stock ticker name" aria-describedby="basic-addon2">
             <div class="input-group-append">
               <button class="btn p-0 px-2" type="submit"><i class="fa fa-search fa-lg"></i></button>
             </div>

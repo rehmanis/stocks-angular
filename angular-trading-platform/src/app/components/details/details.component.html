@@ -46,7 +46,7 @@
 
                     </div>
                     <div class="col align-end" [ngClass]="calculateClassesForPrice()" >
-                        {{ companyPrice[0].last }}
+                        {{ companyPrice[0].last | number:'1.2-2' }}
                     </div>
                 </div>
                 <div class="row row2 align-items-center">
@@ -64,7 +64,7 @@
                                 <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
                             </svg>
                         </span>
-                        <span> {{ companyPrice[0].change }} ({{ companyPrice[0].perChange }} &#37;) </span>
+                        <span> {{ companyPrice[0].change | number:'1.2-2' }} ({{ companyPrice[0].perChange | number:'1.2-2'}} &#37;) </span>
                     </div>
                 </div>
                 <div class="row row3 align-items-center">
@@ -92,6 +92,7 @@
                     <div class="col">
                         <mat-tab-group mat-align-tabs="center" mat-stretch-tabs>
                             <mat-tab label="Summary">
+                                <ng-template matTabContent>
                                 <div class="container">
                                     <div class="row">
                                         <div class="col-12 col-md-6">
@@ -101,23 +102,23 @@
                                                         <tbody>
                                                           <tr>
                                                             <td>High Price:</td>
-                                                            <td>{{ companyPrice[0].high }}</td>
+                                                            <td>{{ companyPrice[0].high | number:'1.2-2' }}</td>
                                                           </tr>
                                                           <tr>
                                                             <td>Low Price:</td>
-                                                            <td>{{ companyPrice[0].low }}</td>
+                                                            <td>{{ companyPrice[0].low | number:'1.2-2' }}</td>
                                                           </tr>
                                                           <tr>
                                                             <td>Open Price:</td>
-                                                            <td>{{ companyPrice[0].open }}</td>
+                                                            <td>{{ companyPrice[0].open | number:'1.2-2' }}</td>
                                                           </tr>
                                                           <tr>
                                                             <td>Prev. Close: </td>
-                                                            <td>{{ companyPrice[0].prevClose }}</td>
+                                                            <td>{{ companyPrice[0].prevClose | number:'1.2-2' }}</td>
                                                           </tr>
                                                           <tr>
                                                             <td>Volume: </td>
-                                                            <td>{{ companyPrice[0].volume }}</td>
+                                                            <td>{{ companyPrice[0].volume | number }}</td>
                                                           </tr>
                                                         </tbody>
                                                     </table>
@@ -128,23 +129,23 @@
                                                         <tbody>
                                                           <tr>
                                                             <td>Mid Price:</td>
-                                                            <td>{{ companyPrice[0].mid }}</td>
+                                                            <td>{{ companyPrice[0].mid | number:'1.2-2' }}</td>
                                                           </tr>
                                                           <tr>
                                                             <td>Ask Price:</td>
-                                                            <td>{{ companyPrice[0].askPrice }}</td>
+                                                            <td>{{ companyPrice[0].askPrice | number:'1.2-2' }}</td>
                                                           </tr>
                                                           <tr>
                                                             <td>Ask Size:</td>
-                                                            <td>{{ companyPrice[0].askSize }}</td>
+                                                            <td>{{ companyPrice[0].askSize | number }}</td>
                                                           </tr>
                                                           <tr>
                                                             <td>Bid Price:</td>
-                                                            <td>{{ companyPrice[0].bidPrice }}</td>
+                                                            <td>{{ companyPrice[0].bidPrice | number:'1.2-2' }}</td>
                                                           </tr>
                                                           <tr>
                                                             <td>Bid Size:</td>
-                                                            <td>{{ companyPrice[0].bidSize }}</td>
+                                                            <td>{{ companyPrice[0].bidSize | number }}</td>
                                                           </tr>
                                                         </tbody>
                                                     </table>
@@ -175,15 +176,16 @@
                                         </div>
                                         <div class="col-12 col-md-6">
                                             <highcharts-chart 
-                                                [Highcharts]="HighchartsDaily"
-                                                [options]="chartOptionsDaily"
-                                                [constructorType]="'stockChart'" 
-     
-                                                style="width: 100%; height: 400px; display: block;"
+                                            [Highcharts]="HighchartsDaily"
+                                            [options]="chartOptionsDaily"
+                                            [constructorType]="'stockChart'"
+                                            [(update)]="updateFlag" 
+                                            style="width: 100%; height: 400px; display: block;"
                                             ></highcharts-chart>
                                         </div>
                                     </div>
                                 </div>
+                            </ng-template>
                             </mat-tab>
                             <mat-tab label="Top News"> 
                                 <app-news-modal [companyNews]="companyNews" ></app-news-modal>

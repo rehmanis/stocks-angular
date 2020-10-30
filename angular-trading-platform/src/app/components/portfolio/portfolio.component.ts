@@ -56,7 +56,7 @@ export class PortfolioComponent implements OnInit {
       this.portfolioCompPrice = res.results.map((item : PriceResponse) => item);
       this.updateDisplay(index);
       this.isLoading = false;
-      console.log(this.portfolioCompPrice);
+      // console.log(this.portfolioCompPrice);
     })
 
     // const observables = [
@@ -76,7 +76,7 @@ export class PortfolioComponent implements OnInit {
     //   // console.log(this.portfolioCompPrice);
     //   this.isLoading = false;
     // });
-    console.log("got the buy")
+    // console.log("got the buy")
   }
 
 
@@ -96,8 +96,8 @@ export class PortfolioComponent implements OnInit {
 
     if (index != -1){
       this.portfolioData.splice(index, 1);
-      console.log("after")
-      console.log(this.portfolioCompPrice);
+      // console.log("after")
+      // console.log(this.portfolioCompPrice);
       
     }
 
@@ -106,7 +106,7 @@ export class PortfolioComponent implements OnInit {
       qty = this.portfolioList[this.portfolioCompPrice[i].ticker][0];
       totalCost = this.portfolioList[this.portfolioCompPrice[i].ticker][1];
       avgCost = totalCost / qty;
-      change = +(avgCost - this.portfolioCompPrice[i].last).toFixed(3);
+      change = +(this.portfolioCompPrice[i].last - avgCost).toFixed(3);
       name = this.portfolioList[this.portfolioCompPrice[i].ticker][2];
 
       // console.log(this.portfolioData)

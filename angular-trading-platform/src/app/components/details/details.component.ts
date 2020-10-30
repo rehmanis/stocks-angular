@@ -40,6 +40,8 @@ export class DetailsComponent implements OnInit {
   isChangeNeg = false;
   isError = false;
   isAddedToFav = false;
+  updateFlag = false;
+  interval;
 
   // High charts initialization
   HighchartsDaily: typeof Highcharts = Highcharts;
@@ -177,9 +179,15 @@ export class DetailsComponent implements OnInit {
     }]
   }
 
-  interval;
+
 
   constructor(private detailService: DetailsService, private alertService: AlertsService, private route: ActivatedRoute) {}
+
+  ngOnDestroy(){
+
+    clearInterval(this.interval);
+  }
+
 
   ngOnInit(): void {
 
@@ -187,19 +195,21 @@ export class DetailsComponent implements OnInit {
       this.ticker = params.get("ticker").toUpperCase();
       let watchlist = JSON.parse(localStorage.getItem("watchlist"));
 
-      console.log("printing watchlist: " + watchlist);
+      // console.log("printing watchlist: " + watchlist);
       
       if (watchlist){
-        console.log("printing isAddedToFav: " + watchlist[this.ticker]);
+        // console.log("printing isAddedToFav: " + watchlist[this.ticker]);
         this.isAddedToFav = watchlist[this.ticker] || false;
       }
 
-      console.log("printing isAddedToFav: " + this.isAddedToFav);
+      // console.log("printing isAddedToFav: " + this.isAddedToFav);
     })
+    
 
-    // this.interval = setInterval(() => {
-    //   this.update();
-    // }, 15000);
+    this.interval = setInterval(() => {
+      this.update();
+      console.log("15 sec timer running")
+    }, 15000);
 
     this.isError = false;
     this.isLoading = true;
@@ -281,7 +291,7 @@ export class DetailsComponent implements OnInit {
 
       let watchlist = JSON.parse(localStorage.getItem("watchlist")) || {};  // should be a dictionary
       watchlist[this.ticker] = this.companyDetails[0].name;
-      console.log(watchlist);
+      // console.log(watchlist);
       localStorage.setItem("watchlist", JSON.stringify(watchlist));
       this.isAddedToFav = true;
       this.alertService.showWatchlistAlert(this.isAddedToFav, this.companyDetails[0].ticker);
@@ -291,7 +301,7 @@ export class DetailsComponent implements OnInit {
   }
 
   update() {
-    console.log("\nI am here...............................\n")
+    // console.log("\nI am here...............................\n")
     this.detailService.getCompanyDetails(this.ticker).subscribe ( responseList => {
 
 
@@ -300,7 +310,7 @@ export class DetailsComponent implements OnInit {
       this.companyPrice = responseList[1].results;
 
       if (this.companyDetails.length == 0 || this.companyPrice.length == 0){
-        console.log("Error")
+        // console.log("Error")
         this.isError = true;
         return;
       }
@@ -317,6 +327,7 @@ export class DetailsComponent implements OnInit {
         this.dailyChart = res.results;
         this.updateDailyChart();
         this.isLoading = false;
+        this.updateFlag = true;
       });
     });
   }
