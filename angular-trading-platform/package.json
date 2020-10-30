@@ -7,7 +7,7 @@
   },
   "scripts": {
     "start": "node ./bin/www",
-    "devstart": "ng build && nodemon ./bin/www"
+    "devstart": "nodemon ./bin/www"
   },
   "private": true,
   "dependencies": {

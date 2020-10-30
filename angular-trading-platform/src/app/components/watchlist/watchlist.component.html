@@ -33,7 +33,7 @@
                                     {{ item.ticker }}
                                 </div>
                                 <div class="col align-end" [ngClass]="{ 'positive': item.isChangePos , 'negative': item.isChangeNeg }">
-                                    {{ item.last }}
+                                    {{ item.last | number:'1.2-2'}}
                                 </div>
                             </div>
                             <div class='row'>
@@ -45,16 +45,16 @@
                                         <svg width="0.8em" height="0.8em" viewBox="0 0 16 16" class="bi bi-caret-down-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M7.247 4.86l-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
                                         </svg>
-                                        {{ item.change }} ({{ item.perChange }} &#37;)
+                                        {{ item.change | number:'1.2-2' }} ({{ item.perChange | number:'1.2-2' }} &#37;)
                                     </span>
                                     <span *ngIf="item.isChangeNeg" class="negative">
                                         <svg width="0.8em" height="0.8em" viewBox="0 0 16 16" class="bi bi-caret-down-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
                                         </svg>
-                                        {{ item.change }} ({{ item.perChange }} &#37;)
+                                        {{ item.change | number:'1.2-2' }} ({{ item.perChange | number:'1.2-2'}} &#37;)
                                     </span>
                                     <span *ngIf="!item.isChangePos && !item.isChangeNeg"> 
-                                        {{ item.change }} ({{ item.perChange }} &#37;)
+                                        {{ item.change | number:'1.2-2' }} ({{ item.perChange | number:'1.2-2' }} &#37;)
                                     </span>
                                 </div>
                             </div>

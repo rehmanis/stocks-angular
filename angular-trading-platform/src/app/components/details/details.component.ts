@@ -309,6 +309,9 @@ export class DetailsComponent implements OnInit {
       this.companyDetails = responseList[0].results;
       this.companyPrice = responseList[1].results;
 
+      console.log(this.companyDetails);
+      console.log(this.companyPrice);
+
       if (this.companyDetails.length == 0 || this.companyPrice.length == 0){
         // console.log("Error")
         this.isError = true;
