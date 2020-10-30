@@ -30,7 +30,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row row1 align-items-center">
+                <div class="row h3 my-0 py-0 align-items-center">
                     <div class="col">                  
                         {{ companyDetails[0].ticker }} 
                         <span class="star" *ngIf="!isAddedToFav" (click)="toggleWatchlist()">
@@ -49,7 +49,7 @@
                         {{ companyPrice[0].last | number:'1.2-2' }}
                     </div>
                 </div>
-                <div class="row row2 align-items-center">
+                <div class="row h5 my-0 py-0 text-muted align-items-center">
                     <div class="col">
                         {{ companyDetails[0].name }}
                     </div>
@@ -67,7 +67,7 @@
                         <span> {{ companyPrice[0].change | number:'1.2-2' }} ({{ companyPrice[0].perChange | number:'1.2-2'}} &#37;) </span>
                     </div>
                 </div>
-                <div class="row row3 align-items-center">
+                <div class="row align-items-center">
                     <div class="col">
                         {{ companyDetails[0].exchangeCode }}
                     </div>
@@ -78,8 +78,8 @@
                 <div class="row">
                     <app-buy-modal [companyDetail]="companyDetails" [companyPrice]="companyPrice" [isBuy]="true"></app-buy-modal>
                 </div>
-                <div class="row">
-                    <div class="col market-status" >
+                <div class="row pt-2">
+                    <div class="col text-center" >
                         <div *ngIf="companyPrice[0].isMarketOpen; else marketClosed">
                             <span class="market-open"> Market is Open </span>
                         </div>
@@ -96,7 +96,7 @@
                                 <div class="container">
                                     <div class="row">
                                         <div class="col-12 col-md-6">
-                                            <div class="row p-4">
+                                            <div class="row no-gutters p-2 py-5">
                                                 <div class="col d-flex justify-content-center">
                                                     <table class="">
                                                         <tbody>
@@ -129,23 +129,48 @@
                                                         <tbody>
                                                           <tr>
                                                             <td>Mid Price:</td>
-                                                            <td>{{ companyPrice[0].mid | number:'1.2-2' }}</td>
+                                                            <div *ngIf="companyPrice[0].mid else elseMidpriceBlock">
+                                                                <td>{{ companyPrice[0].mid | number:'1.2-2' }}</td>
+                                                            </div>
+                                                            <ng-template #elseMidpriceBlock>
+                                                                <td>-</td>
+                                                            </ng-template>
                                                           </tr>
                                                           <tr>
                                                             <td>Ask Price:</td>
-                                                            <td>{{ companyPrice[0].askPrice | number:'1.2-2' }}</td>
+                                                            <div *ngIf="companyPrice[0].askPrice else elseAskpriceBlock">
+                                                                <td>{{ companyPrice[0].askPrice| number:'1.2-2' }}</td>
+                                                            </div>
+                                                            <ng-template #elseAskpriceBlock>
+                                                                <td>-</td>
+                                                            </ng-template>
                                                           </tr>
                                                           <tr>
                                                             <td>Ask Size:</td>
-                                                            <td>{{ companyPrice[0].askSize | number }}</td>
+                                                            <div *ngIf="companyPrice[0].askSize else elseAsksizeBlock">
+                                                                <td>{{ companyPrice[0].askSize | number }}</td>
+                                                            </div>
+                                                            <ng-template #elseAsksizeBlock>
+                                                                <td>-</td>
+                                                            </ng-template>
                                                           </tr>
                                                           <tr>
                                                             <td>Bid Price:</td>
-                                                            <td>{{ companyPrice[0].bidPrice | number:'1.2-2' }}</td>
+                                                            <div *ngIf="companyPrice[0].bidPrice else elseBidpriceBlock">
+                                                                <td>{{ companyPrice[0].bidPrice | number:'1.2-2' }}</td>
+                                                            </div>
+                                                            <ng-template #elseBidpriceBlock>
+                                                                <td>-</td>
+                                                            </ng-template>
                                                           </tr>
                                                           <tr>
                                                             <td>Bid Size:</td>
-                                                            <td>{{ companyPrice[0].bidSize | number }}</td>
+                                                            <div *ngIf="companyPrice[0].bidSize else elseBidsizeBlock">
+                                                                <td>{{ companyPrice[0].bidSize | number }}</td>
+                                                            </div>
+                                                            <ng-template #elseBidsizeBlock>
+                                                                <td>-</td>
+                                                            </ng-template>
                                                           </tr>
                                                         </tbody>
                                                     </table>

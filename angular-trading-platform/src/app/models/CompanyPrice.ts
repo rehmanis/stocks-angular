@@ -41,10 +41,10 @@ export class CompanyPrice {
         this.dataDateStr = this.getDateStr(this.dataDate) + ' ' + this.getDateTimeStr(this.dataDate);
         this.currDateStr = this.getDateStr(this.currDate) + ' ' + this.getDateTimeStr(this.currDate);
 
-        // console.log(this.currDate);
-        // console.log(this.dataDate);
-        // console.log((this.currDate - this.dataDate));
-        // console.log((this.currDate - this.dataDate) < 60*1000);
+        console.log(this.currDateStr);
+        console.log(this.dataDateStr);
+        console.log((this.currDate - this.dataDate));
+        console.log((this.currDate - this.dataDate) < 60*1000);
         
 
         if ((this.currDate - this.dataDate) < 60000) {
@@ -58,13 +58,21 @@ export class CompanyPrice {
 
     getDateTimeStr(date: any) : string {
 
-        let hr = date.getHours();
-        let min = date.getMinutes();
-        let sec = date.getSeconds();
-        
+        let hr = '' + date.getHours();
+        let min = '' + date.getMinutes();
+        let sec = '' + date.getSeconds();
 
-        if (sec.length < 2)
+        // console.log("before.................seconds:" + sec)
+        // console.log("before.................seconds len:" + sec.length )
+        
+        if (min.length < 2){
+            min = '0' + min;
+        }
+
+        if (sec.length < 2){
+            // console.log("after.................seconds:" + sec)
             sec = '0' + sec;
+        }
 
         return [hr, min, sec].join(':');
     }
