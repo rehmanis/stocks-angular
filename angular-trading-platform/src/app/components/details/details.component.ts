@@ -48,6 +48,10 @@ export class DetailsComponent implements OnInit {
   chartConstructor: string = 'chart'; // optional string, defaults to 'chart'
   chartOptionsDaily: Highcharts.Options = {
 
+    time: {
+      timezone: 'America/Los_Angeles'
+    },
+
     navigator: {
     
       series: [{
@@ -55,7 +59,7 @@ export class DetailsComponent implements OnInit {
           fillOpacity: 1.0,
           color: '',
       }]
-  },
+    },
 
     series: [
       {
@@ -208,7 +212,7 @@ export class DetailsComponent implements OnInit {
 
     this.interval = setInterval(() => {
       this.update();
-      console.log("15 sec timer running")
+      // console.log("15 sec timer running")
     }, 15000);
 
     this.isError = false;
@@ -309,8 +313,8 @@ export class DetailsComponent implements OnInit {
       this.companyDetails = responseList[0].results;
       this.companyPrice = responseList[1].results;
 
-      console.log(this.companyDetails);
-      console.log(this.companyPrice);
+      // console.log(this.companyDetails);
+      // console.log(this.companyPrice);
 
       if (this.companyDetails.length == 0 || this.companyPrice.length == 0){
         // console.log("Error")

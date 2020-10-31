@@ -53,7 +53,7 @@ export class BuyModalComponent implements OnInit {
 
     }
 
-    console.log("sell")
+    // console.log("sell")
 
     this.total = parseFloat((qty * this.companyPrice[0].last).toFixed(2))
   }
@@ -81,7 +81,7 @@ export class BuyModalComponent implements OnInit {
 
 
     portfolio[this.companyPrice[0].ticker] = [totQty, totCost, name];
-    console.log(portfolio);
+    // console.log(portfolio);
     localStorage.setItem("portfolio", JSON.stringify(portfolio));
       
     this.itemBuyEvent.emit(-1);
@@ -103,20 +103,20 @@ export class BuyModalComponent implements OnInit {
 
     portfolio[this.companyPrice[0].ticker] = [totQty, totCost, name];
 
-    console.log(totQty);
-    console.log(totCost);
+    // console.log(totQty);
+    // console.log(totCost);
 
     if (totQty <= 0){
-      console.log("tot less than 0");
+      // console.log("tot less than 0");
       delete portfolio[this.companyPrice[0].ticker];
       i = this.idx;
-      console.log(this.idx);
+      // console.log(this.idx);
     }
 
-    console.log(portfolio);
+    // console.log(portfolio);
     localStorage.setItem("portfolio", JSON.stringify(portfolio));
-    console.log(this.idx);
-    console.log(i);
+    // console.log(this.idx);
+    // console.log(i);
     this.itemBuyEvent.emit(i);
 
   }

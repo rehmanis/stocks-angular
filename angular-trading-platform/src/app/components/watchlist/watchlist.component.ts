@@ -101,9 +101,9 @@ export class WatchlistComponent implements OnInit {
     let watchlist = JSON.parse(localStorage.getItem("watchlist"));
     delete watchlist[this.watchlistData[index].ticker];
     localStorage.setItem("watchlist", JSON.stringify(watchlist));
-    console.log("before e prop");
+    // console.log("before e prop");
     e.stopPropagation();
-    console.log("after e prop");
+    // console.log("after e prop");
 
     // detail 1 element at this index 
     this.watchlistData.splice(index, 1)
