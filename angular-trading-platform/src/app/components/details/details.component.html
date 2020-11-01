@@ -72,7 +72,7 @@
                         {{ companyDetails[0].exchangeCode }}
                     </div>
                     <div class="col align-end">
-                        {{ companyPrice[0].currDate | date:'y-MM-dd HH:mm:ss' : 'PDT' }}
+                        {{ companyPrice[0].currDate | date:'y-MM-dd HH:mm:ss' : 'PST' }}
                     </div>
                 </div>
                 <div class="row">
@@ -84,7 +84,7 @@
                             <span class="market-open"> Market is Open </span>
                         </div>
                         <ng-template #marketClosed>
-                            <span class="market-closed">Market closed on {{ companyPrice[0].dataDate | date:'y-MM-dd HH:mm:ss' : 'PDT' }}</span>
+                            <span class="market-closed">Market closed on {{ companyPrice[0].dataDate | date:'y-MM-dd HH:mm:ss' : 'PST' }}</span>
                         </ng-template>
                     </div>
                 </div>

@@ -32,4 +32,5 @@ export class News {
 
 export interface NewsResponse {
     results: News[];
+    success: boolean;
 }

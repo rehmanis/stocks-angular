@@ -48,9 +48,9 @@ export class WatchlistComponent implements OnInit {
     const observables = this.detailService.getMultiCompanyInfo(watchlistKeys, 'price');
 
     this.isWatchListEmpty = (watchlistKeys.length == 0);
-    console.log(this.isWatchListEmpty);
-    console.log(this.watchlist);
-    console.log(this.watchlistData);
+    // console.log(this.isWatchListEmpty);
+    // console.log(this.watchlist);
+    // console.log(this.watchlistData);
 
     if (this.isWatchListEmpty){
       return;

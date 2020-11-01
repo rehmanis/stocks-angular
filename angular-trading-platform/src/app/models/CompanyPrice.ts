@@ -41,10 +41,10 @@ export class CompanyPrice {
         this.dataDateStr = this.getDateStr(this.dataDate) + ' ' + this.getDateTimeStr(this.dataDate);
         this.currDateStr = this.getDateStr(this.currDate) + ' ' + this.getDateTimeStr(this.currDate);
 
-        console.log(this.currDateStr);
-        console.log(this.dataDateStr);
-        console.log((this.currDate - this.dataDate));
-        console.log((this.currDate - this.dataDate) < 60*1000);
+        // console.log(this.currDateStr);
+        // console.log(this.dataDateStr);
+        // console.log((this.currDate - this.dataDate));
+        // console.log((this.currDate - this.dataDate) < 60*1000);
         
 
         if ((this.currDate - this.dataDate) < 60000) {

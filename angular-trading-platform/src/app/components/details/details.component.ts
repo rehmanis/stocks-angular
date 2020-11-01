@@ -49,7 +49,9 @@ export class DetailsComponent implements OnInit {
   chartOptionsDaily: Highcharts.Options = {
 
     time: {
-      timezone: 'America/Los_Angeles'
+      // timezone: 'America/Los_Angeles',
+      timezoneOffset: 8 * 60
+      // useUTC: false
     },
 
     navigator: {
@@ -319,6 +321,7 @@ export class DetailsComponent implements OnInit {
       if (this.companyDetails.length == 0 || this.companyPrice.length == 0){
         // console.log("Error")
         this.isError = true;
+        clearInterval(this.interval);
         return;
       }
 

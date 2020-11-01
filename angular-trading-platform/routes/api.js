@@ -122,9 +122,18 @@ router.get('/news/:ticker', function(req, res, next) {
   fetch(`https://newsapi.org/v2/everything?apiKey=02b9e74dc8a54b8cb99ef52fa07cd062&q=${ticker}`)
   .then(res => res.json())
   .then(function(data) {
+
+    if (!data){
+      news.results = [];
+      news.success = false;
+    }else{
+      news.results = processNews(data.articles);
+      news.success = true;
+    }
+
     // console.log(data.articles);
-    news.results = processNews(data.articles);
-    news.success = true;
+    // news.results = processNews(data.articles);
+    // news.success = true;
     // console.log(news)
     res.send(news)
   });
@@ -147,8 +156,20 @@ router.get('/chart/historical/:ticker', function(req, res, next) {
   fetch(`https://api.tiingo.com/tiingo/daily/${ticker}/prices?startDate=${startDate}&resampleFreq=daily&token=8bb5d357e4616c9938090e9e3de7acefc38d224b`)
   .then(res => res.json())
   .then(function(data) {
-    histChart.results = data;
-    histChart.success = true;
+
+    // console.log(data);
+
+    if (!data || data.detail){
+      histChart.results = [];
+      histChart.success = false;
+    }else{
+      histChart.results = data;
+      histChart.success = true;
+    }
+
+
+    // histChart.results = data;
+    // histChart.success = true;
     // val = processHistChart(data)
     // console.log(val.volume);
     // console.log(val.ohlc);

@@ -15,4 +15,5 @@ export class HistChart {
 export interface HistChartResponse {
     total: Number;
     results: HistChart[];
+    success: boolean;
 }

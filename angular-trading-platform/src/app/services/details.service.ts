@@ -158,6 +158,14 @@ export class DetailsService {
     let news$ = this.http.get<NewsResponse>(this.rootURL + '/news/' + ticker)
       .pipe(
         tap( (res: NewsResponse) => {
+
+          if (!res.success) {
+            res.results = [];
+            // console.log("errror price");
+            return res;
+          }
+
+
           res.results = res.results.map(
             news => new News(news.url, news.title, news.description, news.source, 
               news.urlToImage, news.publishedAt));
@@ -169,6 +177,13 @@ export class DetailsService {
     let hist$ = this.http.get(this.rootURL + '/chart/historical/' + ticker)
       .pipe(
         tap( (res: HistChartResponse) => {
+
+          if (!res.success) {
+            res.results = [];
+            // console.log("errror price");
+            return res;
+          }
+
           res.results = res.results.map(
             data => new HistChart(data.date, data.open, data.high, data.low, data.close, data.volume));
         
