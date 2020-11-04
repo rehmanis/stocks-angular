@@ -8,6 +8,7 @@
 .active-route {
     border:2px solid #ded6fb;
     border-radius: 10px;
+    outline: none;
 }
 
 .nav-item a {

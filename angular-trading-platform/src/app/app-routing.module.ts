@@ -10,7 +10,8 @@ const routes: Routes = [
   { path: '', component: TickerSearchComponent },
   { path: 'watchlist', component: WatchlistComponent },
   { path: 'details/:ticker', component: DetailsComponent },
-  { path: 'portfolio', component: PortfolioComponent }
+  { path: 'portfolio', component: PortfolioComponent },
+  { path: '**',   redirectTo: '', pathMatch: 'full' }
   
 ];
 
