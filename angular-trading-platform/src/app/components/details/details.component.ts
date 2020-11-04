@@ -133,13 +133,14 @@ export class DetailsComponent implements OnInit {
     plotOptions: {
         series: {
             dataGrouping: {
-                units: [[
-                  'week',                         // unit name
-                  [1]                             // allowed multiples
-              ], [
-                  'year',
-                  [1, 2, 3, 4, 6]
-              ]],
+                units: [
+                  ['day', [1]],
+                  ['week', [1]], 
+                  ['month', [1]],
+                  ['year', null]
+                ],
+
+              groupPixelWidth: 20
       
             }
         }
