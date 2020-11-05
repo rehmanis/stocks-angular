@@ -222,6 +222,8 @@ export class DetailsComponent implements OnInit {
     this.isLoading = true;
     this.update();
 
+
+
     
     this.detailService.getNewsAndHisChart(this.ticker).subscribe ( res => {
 
@@ -326,11 +328,14 @@ export class DetailsComponent implements OnInit {
         return;
       }
 
-
       if (this.companyPrice[0].change < 0) {
         this.isChangeNeg = true;
       }else if (this.companyPrice[0].change > 0) {
         this.isChangePos = true;
+      }
+
+      if (!this.companyPrice[0].isMarketOpen){
+        clearInterval(this.interval);
       }
 
       this.detailService.getDailyChart(this.ticker, this.companyPrice[0].timestamp.slice(0, 10)).subscribe(res => {
