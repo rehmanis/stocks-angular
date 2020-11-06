@@ -124,9 +124,8 @@
                             </div>
                             <div class="card-footer text-muted">
                                 <div class="d-flex flex-row-reverse">
-                                    
-                                    <app-buy-modal (itemBuyEvent)="updateData($event)" [companyPrice]="[portfolioCompPrice[i]]" [idx]="i" [isBuy]="true"></app-buy-modal>
                                     <app-buy-modal (itemBuyEvent)="updateData($event)" [companyPrice]="[portfolioCompPrice[i]]" [idx]="i" [isBuy]="false"></app-buy-modal>
+                                    <app-buy-modal (itemBuyEvent)="updateData($event)" [companyPrice]="[portfolioCompPrice[i]]" [idx]="i" [isBuy]="true" [buttonPortfolio]="true"></app-buy-modal>
                                 </div>
                             </div>
                         </div>

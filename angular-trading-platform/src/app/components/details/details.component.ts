@@ -220,7 +220,44 @@ export class DetailsComponent implements OnInit {
 
     this.isError = false;
     this.isLoading = true;
-    this.update();
+
+    this.detailService.getCompanyDetails(this.ticker).subscribe ( responseList => {
+
+      this.companyDetails = responseList[0].results;
+      this.companyPrice = responseList[1].results;
+
+      // console.log(this.companyDetails);
+      // console.log(this.companyPrice);
+
+      if (this.companyDetails.length == 0 || this.companyPrice.length == 0){
+        // console.log("Error")
+        this.isError = true;
+        clearInterval(this.interval);
+        return;
+      }
+
+      if (this.companyPrice[0].change < 0) {
+        this.isChangeNeg = true;
+      }else if (this.companyPrice[0].change > 0) {
+        this.isChangePos = true;
+      }
+
+      if (!this.companyPrice[0].isMarketOpen){
+        clearInterval(this.interval);
+      }
+
+      this.detailService.getDailyChart(this.ticker, this.companyPrice[0].timestamp.slice(0, 10)).subscribe(res => {
+
+        this.dailyChart = res.results;
+        this.updateDailyChart();
+        this.isLoading = false;
+        this.updateFlag = true;
+      });
+    });
+
+
+
+    // this.update();
 
 
 
@@ -311,22 +348,22 @@ export class DetailsComponent implements OnInit {
 
   update() {
     // console.log("\nI am here...............................\n")
-    this.detailService.getCompanyDetails(this.ticker).subscribe ( responseList => {
+    this.detailService.getMultiCompanyInfo([this.ticker], 'price').subscribe ( responseList => {
 
+      // console.log(responseList)
 
-
-      this.companyDetails = responseList[0].results;
-      this.companyPrice = responseList[1].results;
+      // this.companyDetails = responseList[0].results;
+      this.companyPrice = responseList.results;
 
       // console.log(this.companyDetails);
       // console.log(this.companyPrice);
 
-      if (this.companyDetails.length == 0 || this.companyPrice.length == 0){
-        // console.log("Error")
-        this.isError = true;
-        clearInterval(this.interval);
-        return;
-      }
+      // if (this.companyDetails.length == 0 || this.companyPrice.length == 0){
+      //   // console.log("Error")
+      //   this.isError = true;
+      //   clearInterval(this.interval);
+      //   return;
+      // }
 
       if (this.companyPrice[0].change < 0) {
         this.isChangeNeg = true;

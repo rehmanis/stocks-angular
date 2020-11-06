@@ -43,7 +43,7 @@ export class AlertsService {
 
     if (!document.querySelector("#buy-alert")){
 
-      console.log("not alert");
+      // console.log("not alert");
       return;
     }
 

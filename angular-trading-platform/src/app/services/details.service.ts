@@ -91,6 +91,30 @@ export class DetailsService {
 
   }
 
+  // public getCompanyDetail(ticker: string): Observable<any> {
+
+  //   return this.http.get(this.rootURL + '/detail/' + ticker)
+  //     .pipe(
+  //       tap( (res: DetailsResponse) => {
+
+  //         // console.log(res);
+
+  //         if (!res.success) {
+  //           res.results = [];
+  //           // console.log("errror detail");
+  //           return res;
+  //         }
+
+
+  //         res.results = res.results.map(
+  //           detail => new CompanyDetails(detail.ticker, detail.name, 
+  //               detail.description, detail.startDate, detail.exchangeCode));
+        
+  //         return res;
+  //     }));
+
+  // }
+
   public getCompanyDetails(ticker: string): Observable<any[]> {
 
     let detail$ = this.http.get(this.rootURL + '/detail/' + ticker)
