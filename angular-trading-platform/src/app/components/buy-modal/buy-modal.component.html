@@ -1,5 +1,3 @@
-
-
 <div class="col">
     <div *ngIf="isBuy; else sellBlock">
         <div *ngIf="buttonPortfolio; else detailButton">
@@ -56,9 +54,7 @@
                 <ng-template #sellBlock>
                     <button class='btn btn-success' (click)="sell()" (click)="c('buy click')" [disabled]="isDisabled">Sell</button>
                 </ng-template>
-                
             </div>
         </div>
-
     </div>
 </ng-template>

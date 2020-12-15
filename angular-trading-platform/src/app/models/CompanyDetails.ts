@@ -8,8 +8,6 @@ export class CompanyDetails {
         public exchangeCode: string) {
 
     }
-
-
 }
 
 export interface DetailsResponse {

@@ -22,23 +22,7 @@ export class WatchlistComponent implements OnInit {
 
   ngOnInit(): void {
 
-    // let watchlistKeys = Object.keys(this.watchlist); 
-
-    // watchlistKeys.sort();
-    // console.log(watchlistKeys);
-
-
     this.updateData();
-
-    // const observables = this.detailService.getMultiCompanyInfo(watchlistKeys, 'price');
-
-    // this.detailService.getMultiCompanyInfo(watchlistKeys, 'price').subscribe(res => {
-
-    //   this.watchlistCompPrice = res.results.map((item : PriceResponse) => item);
-    //   this.updateDisplayData();
-    //   this.isLoading = false;
-    //   // console.log(this.watchlistCompPrice);
-    // })
   }
 
   updateData(){
@@ -48,9 +32,6 @@ export class WatchlistComponent implements OnInit {
     const observables = this.detailService.getMultiCompanyInfo(watchlistKeys, 'price');
 
     this.isWatchListEmpty = (watchlistKeys.length == 0);
-    // console.log(this.isWatchListEmpty);
-    // console.log(this.watchlist);
-    // console.log(this.watchlistData);
 
     if (this.isWatchListEmpty){
       return;
@@ -61,7 +42,6 @@ export class WatchlistComponent implements OnInit {
       this.watchlistCompPrice = res.results.map((item : PriceResponse) => item);
       this.updateDisplayData();
       this.isLoading = false;
-      // console.log(this.watchlistCompPrice);
     })
 
   }
@@ -91,8 +71,6 @@ export class WatchlistComponent implements OnInit {
           isChangePos: this.watchlistCompPrice[i].change > 0,
         });
       }
-
-
     }
   }
 
@@ -101,14 +79,10 @@ export class WatchlistComponent implements OnInit {
     let watchlist = JSON.parse(localStorage.getItem("watchlist"));
     delete watchlist[this.watchlistData[index].ticker];
     localStorage.setItem("watchlist", JSON.stringify(watchlist));
-    // console.log("before e prop");
     e.stopPropagation();
-    // console.log("after e prop");
 
-    // detail 1 element at this index 
+    // delete 1 element at this index 
     this.watchlistData.splice(index, 1)
-    // this.isWatchListEmpty = (this.watchlistData.length == 0);
-
     this.updateData();
   }
 

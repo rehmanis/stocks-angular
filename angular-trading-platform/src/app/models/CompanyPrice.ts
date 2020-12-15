@@ -27,33 +27,17 @@ export class CompanyPrice {
 
         this.change = (last - prevClose);
         this.perChange = (this.change / prevClose * 100);
-
         this.change = parseFloat(this.change.toFixed(2));
         this.perChange = parseFloat(this.perChange.toFixed(2));
- 
         this.dataDate = new Date(timestamp);
         this.currDate = new Date();
-
-
-        // console.log(timestamp);
-
-
         this.dataDateStr = this.getDateStr(this.dataDate) + ' ' + this.getDateTimeStr(this.dataDate);
         this.currDateStr = this.getDateStr(this.currDate) + ' ' + this.getDateTimeStr(this.currDate);
-
-        // console.log(this.currDateStr);
-        // console.log(this.dataDateStr);
-        // console.log((this.currDate - this.dataDate));
-        // console.log((this.currDate - this.dataDate) < 60*1000);
-        
 
         if ((this.currDate - this.dataDate) < 60000) {
 
             this.isMarketOpen = true;
         }
-
-        // console.log(this.isMarketOpen);
-
     }
 
     getDateTimeStr(date: any) : string {
@@ -61,16 +45,12 @@ export class CompanyPrice {
         let hr = '' + date.getHours();
         let min = '' + date.getMinutes();
         let sec = '' + date.getSeconds();
-
-        // console.log("before.................seconds:" + sec)
-        // console.log("before.................seconds len:" + sec.length )
         
         if (min.length < 2){
             min = '0' + min;
         }
 
         if (sec.length < 2){
-            // console.log("after.................seconds:" + sec)
             sec = '0' + sec;
         }
 
@@ -88,10 +68,7 @@ export class CompanyPrice {
             day = '0' + day;
 
         return [year, month, day].join('-');
-
     }
-
-
 }
 
 export interface PriceResponse {

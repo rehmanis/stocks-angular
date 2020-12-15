@@ -22,9 +22,6 @@ export class DetailsService {
 
   
   getMultiCompanyInfo(tickers: string[], route: string): Observable<any>{
-    // const prices$ = tickers.map((ticker: string) => this.http.get(this.rootURL + '/'+ route +'/' + ticker));
-
-    // console.log(tickers.join(','));
 
     return this.http.get(this.rootURL + '/'+ route +'/' + tickers.join(','))
       .pipe(
@@ -33,7 +30,6 @@ export class DetailsService {
 
           if (!res.success) {
             res.results = [];
-            // console.log("errror detail");
             return res;
           }
   
@@ -48,72 +44,7 @@ export class DetailsService {
         }),
       )
 
-
-    // const tickerCommaStr = tickers.join(',');
-
-    // .pipe(
-    //   tap( (res: DailyChartResponse) => {
-    //     res.results = res.results.map(
-    //       chartData => new DailyChart(chartData.date, chartData.close));
-
-    //     return res;
-    // }));  
-
-    // return forkJoin(prices$).pipe(
-
-    //   concatMap((result) => {
-    //       return from(result);
-    //   }),
-      
-    //   tap((res: any) => {
-
-    //     if (!res.success) {
-    //       res.results = [];
-    //       // console.log("errror detail");
-    //       return res;
-    //     }
-
-    //     if (route == 'detail'){
-    //       res.results = res.results.map(
-    //         detail => new CompanyDetails(detail.ticker, detail.name, 
-    //             detail.description, detail.startDate, detail.exchangeCode));
-    //     }else{
-    //       res.results = res.results.map(
-    //         price => new CompanyPrice(price.ticker, price.timestamp, price.last, 
-    //           price.prevClose, price.open, price.high, price.low, price.mid, 
-    //           price.volume, price.bidSize, price.bidPrice, price.askSize, price.askPrice));
-    //     }
-      
-    //     return res;
-    //   }),
-    //   toArray()
-    // )
-
   }
-
-  // public getCompanyDetail(ticker: string): Observable<any> {
-
-  //   return this.http.get(this.rootURL + '/detail/' + ticker)
-  //     .pipe(
-  //       tap( (res: DetailsResponse) => {
-
-  //         // console.log(res);
-
-  //         if (!res.success) {
-  //           res.results = [];
-  //           // console.log("errror detail");
-  //           return res;
-  //         }
-
-
-  //         res.results = res.results.map(
-  //           detail => new CompanyDetails(detail.ticker, detail.name, 
-  //               detail.description, detail.startDate, detail.exchangeCode));
-        
-  //         return res;
-  //     }));
-
-  // }
 
   public getCompanyDetails(ticker: string): Observable<any[]> {
 
@@ -121,14 +52,10 @@ export class DetailsService {
       .pipe(
         tap( (res: DetailsResponse) => {
 
-          // console.log(res);
-
           if (!res.success) {
             res.results = [];
-            // console.log("errror detail");
             return res;
           }
-
 
           res.results = res.results.map(
             detail => new CompanyDetails(detail.ticker, detail.name, 
@@ -142,11 +69,8 @@ export class DetailsService {
       .pipe(
         tap( (res: PriceResponse) => {
 
-          // console.log(res.results);
-
           if (!res.success) {
             res.results = [];
-            // console.log("errror price");
             return res;
           }
 
@@ -185,10 +109,8 @@ export class DetailsService {
 
           if (!res.success) {
             res.results = [];
-            // console.log("errror price");
             return res;
           }
-
 
           res.results = res.results.map(
             news => new News(news.url, news.title, news.description, news.source, 
@@ -204,7 +126,6 @@ export class DetailsService {
 
           if (!res.success) {
             res.results = [];
-            // console.log("errror price");
             return res;
           }
 
@@ -215,8 +136,5 @@ export class DetailsService {
       }));
 
     return forkJoin([news$, hist$]);
-
   }
-
-  
 }

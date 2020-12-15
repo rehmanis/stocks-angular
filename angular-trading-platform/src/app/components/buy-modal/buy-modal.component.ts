@@ -54,8 +54,6 @@ export class BuyModalComponent implements OnInit {
 
     }
 
-    // console.log("sell")
-
     this.total = parseFloat((qty * this.companyPrice[0].last).toFixed(2))
   }
 
@@ -73,16 +71,13 @@ export class BuyModalComponent implements OnInit {
     }
     
 
-
     if (portfolio[this.companyPrice[0].ticker]){
-      // console.log(totQty + parseFloat(portfolio[this.companyPrice[0].ticker][0]));
       totQty += parseFloat(portfolio[this.companyPrice[0].ticker][0]);
       totCost = parseFloat((totCost + parseFloat(portfolio[this.companyPrice[0].ticker][1])).toFixed(2));
     }
 
 
     portfolio[this.companyPrice[0].ticker] = [totQty, totCost, name];
-    // console.log(portfolio);
     localStorage.setItem("portfolio", JSON.stringify(portfolio));
       
     this.itemBuyEvent.emit(-1);
@@ -95,33 +90,22 @@ export class BuyModalComponent implements OnInit {
 
     var portfolio = JSON.parse(localStorage.getItem("portfolio"));
     var totQty = parseFloat(portfolio[this.companyPrice[0].ticker][0]) - this.qty;
-    // var totCost = +(this.companyPrice[0].last * this.qty);
+
     var totCost;
     var totbought = this.qty * parseFloat(portfolio[this.companyPrice[0].ticker][1]) / parseFloat(portfolio[this.companyPrice[0].ticker][0])
     var name = portfolio[this.companyPrice[0].ticker][2]
     let i = -1;
 
-    // console.log(totQty + parseFloat(portfolio[this.companyPrice[0].ticker][0]));
     totCost = parseFloat((parseFloat(portfolio[this.companyPrice[0].ticker][1]) - totbought).toFixed(2));
-
     portfolio[this.companyPrice[0].ticker] = [totQty, totCost, name];
 
-    // console.log(totQty);
-    // console.log(totCost);
-
     if (totQty <= 0){
-      // console.log("tot less than 0");
       delete portfolio[this.companyPrice[0].ticker];
       i = this.idx;
-      // console.log(this.idx);
     }
 
-    // console.log(portfolio);
     localStorage.setItem("portfolio", JSON.stringify(portfolio));
-    // console.log(this.idx);
-    // console.log(i);
     this.itemBuyEvent.emit(i);
 
   }
-
 }

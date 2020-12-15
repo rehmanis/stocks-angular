@@ -4,15 +4,15 @@ import { ActivatedRoute } from "@angular/router";
 import { CompanyDetails } from 'src/app/models/CompanyDetails';
 import { CompanyPrice } from 'src/app/models/CompanyPrice';
 import * as Highcharts from "highcharts/highstock";
-import { DailyChart } from 'src/app/models/DailyChart';
-import { tick } from '@angular/core/testing';
+// import { DailyChart } from 'src/app/models/DailyChart';
+// import { tick } from '@angular/core/testing';
 import { News } from 'src/app/models/News';
 import { HistChart } from 'src/app/models/HistChart';
-import Exporting from 'highcharts/modules/exporting';
+// import Exporting from 'highcharts/modules/exporting';
 import IndicatorsCore from "highcharts/indicators/indicators";
 import vbp from 'highcharts/indicators/volume-by-price';
 import { AlertsService } from 'src/app/services/alerts.service';
-import { timer } from 'rxjs';
+// import { timer } from 'rxjs';
 
 IndicatorsCore(Highcharts);
 vbp(Highcharts);
@@ -202,20 +202,14 @@ export class DetailsComponent implements OnInit {
       this.ticker = params.get("ticker").toUpperCase();
       let watchlist = JSON.parse(localStorage.getItem("watchlist"));
 
-      // console.log("printing watchlist: " + watchlist);
-      
       if (watchlist){
-        // console.log("printing isAddedToFav: " + watchlist[this.ticker]);
         this.isAddedToFav = watchlist[this.ticker] || false;
       }
-
-      // console.log("printing isAddedToFav: " + this.isAddedToFav);
     })
     
 
     this.interval = setInterval(() => {
       this.update();
-      // console.log("15 sec timer running")
     }, 15000);
 
     this.isError = false;
@@ -226,11 +220,7 @@ export class DetailsComponent implements OnInit {
       this.companyDetails = responseList[0].results;
       this.companyPrice = responseList[1].results;
 
-      // console.log(this.companyDetails);
-      // console.log(this.companyPrice);
-
       if (this.companyDetails.length == 0 || this.companyPrice.length == 0){
-        // console.log("Error")
         this.isError = true;
         clearInterval(this.interval);
         return;
@@ -255,25 +245,14 @@ export class DetailsComponent implements OnInit {
       });
     });
 
-
-
-    // this.update();
-
-
-
-    
     this.detailService.getNewsAndHisChart(this.ticker).subscribe ( res => {
 
       this.companyNews = res[0].results;
-      // console.log(this.companyNews);
       this.histChart = res[1].results;
       this.updateHistChart();
 
     });
-
-
   }
-
 
   calculateClassesForPrice() {
     return {
@@ -337,7 +316,6 @@ export class DetailsComponent implements OnInit {
 
       let watchlist = JSON.parse(localStorage.getItem("watchlist")) || {};  // should be a dictionary
       watchlist[this.ticker] = this.companyDetails[0].name;
-      // console.log(watchlist);
       localStorage.setItem("watchlist", JSON.stringify(watchlist));
       this.isAddedToFav = true;
       this.alertService.showWatchlistAlert(this.isAddedToFav, this.companyDetails[0].ticker);
@@ -347,23 +325,10 @@ export class DetailsComponent implements OnInit {
   }
 
   update() {
-    // console.log("\nI am here...............................\n")
+
     this.detailService.getMultiCompanyInfo([this.ticker], 'price').subscribe ( responseList => {
 
-      // console.log(responseList)
-
-      // this.companyDetails = responseList[0].results;
       this.companyPrice = responseList.results;
-
-      // console.log(this.companyDetails);
-      // console.log(this.companyPrice);
-
-      // if (this.companyDetails.length == 0 || this.companyPrice.length == 0){
-      //   // console.log("Error")
-      //   this.isError = true;
-      //   clearInterval(this.interval);
-      //   return;
-      // }
 
       if (this.companyPrice[0].change < 0) {
         this.isChangeNeg = true;
