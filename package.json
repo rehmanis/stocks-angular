@@ -1,0 +1,68 @@
+{
+  "name": "angular-trading-platform",
+  "version": "0.0.0",
+
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "scripts": {
+    "start": "node ./bin/www",
+    "devstart": "nodemon ./bin/www"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "~10.1.5",
+    "@angular/cdk": "^10.2.4",
+    "@angular/common": "~10.1.5",
+    "@angular/compiler": "~10.1.5",
+    "@angular/core": "~10.1.5",
+    "@angular/forms": "~10.1.5",
+    "@angular/localize": "~10.1.5",
+    "@angular/material": "^10.2.4",
+    "@angular/platform-browser": "~10.1.5",
+    "@angular/platform-browser-dynamic": "~10.1.5",
+    "@angular/router": "~10.1.5",
+    "@ng-bootstrap/ng-bootstrap": "^7.0.0",
+    "@types/jquery": "^3.5.3",
+    "angular-font-awesome": "^3.1.2",
+    "angular-in-memory-web-api": "^0.11.0",
+    "bootstrap": "^4.5.2",
+    "font-awesome": "^4.7.0",
+    "highcharts": "^8.2.0",
+    "highcharts-angular": "^2.8.0",
+    "jquery": "^3.5.1",
+    "propper": "^1.0.3",
+    "rxjs": "~6.6.0",
+    "save": "^2.4.0",
+    "tslib": "^2.0.0",
+    "zone.js": "~0.10.2",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "morgan": "~1.9.1",
+    "node-fetch": "^2.6.1",
+    "node-fetch-npm": "^2.0.4",
+    "pug": "2.0.0-beta11"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "~0.1001.6",
+    "@angular/cli": "~10.1.6",
+    "@angular/compiler-cli": "~10.1.5",
+    "@types/node": "^12.11.1",
+    "@types/jasmine": "~3.5.0",
+    "@types/jasminewd2": "~2.0.3",
+    "codelyzer": "^6.0.0",
+    "jasmine-core": "~3.6.0",
+    "jasmine-spec-reporter": "~5.0.0",
+    "karma": "~5.0.0",
+    "karma-chrome-launcher": "~3.1.0",
+    "karma-coverage-istanbul-reporter": "~3.0.2",
+    "karma-jasmine": "~4.0.0",
+    "karma-jasmine-html-reporter": "^1.5.0",
+    "protractor": "~7.0.0",
+    "ts-node": "~8.3.0",
+    "tslint": "~6.1.0",
+    "typescript": "~4.0.2"
+  }
+}
