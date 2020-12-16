@@ -2,10 +2,10 @@
 An Angular web application for virtual stock trading made as part of CSCI571 Web Technologies USC course
 
 ## Large Screen Demo
-[![App Demo large screen](./other/demo-lg.gif)]()
+[![App Demo large screen](./other/demo-lg.gif)](https://csci571-trading-platform.wl.r.appspot.com/)
 
 ## Small Screen Demo
-[![App Demo small](./other/demo-sm.gif)]()
+[![App Demo small](./other/demo-sm.gif)](https://csci571-trading-platform.wl.r.appspot.com/)
 
 
 ## Summary
