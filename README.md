@@ -17,7 +17,7 @@ This Angular app provides a platform for stocks trading, including, features suc
 * Go to [https://csci571-trading-platform.wl.r.appspot.com/](https://csci571-trading-platform.wl.r.appspot.com/)
 
 ### Running the app Locally:
-Before running make sure Angular CLI and Nodejs are installed. For this project Angular CL 10.1.6 and Node 12.19.0 was used.
+Before running make sure Angular CLI and Nodejs are installed. For this project ```Angular CLI 10.1.6``` and ```Node 12.19.0``` was used.
 1. clone the repo using ```git clone https://github.com/rehmanis/CSCI571-Stocks-Angular.git```
 3. ```cd CSCI571-Stocks-Angular```
 2. ```npm install```
