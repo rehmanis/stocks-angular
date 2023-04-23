@@ -1,6 +1,7 @@
 var express = require('express');
 var fetch = require('node-fetch');
 var router = express.Router();
+var tingoApiKey = process.env.TINGO_API_KEY;
 
 /* GET users listing. */
 router.get('/:ticker', function(req, res, next) {
@@ -9,7 +10,7 @@ router.get('/:ticker', function(req, res, next) {
     ticker = req.params.ticker;
     console.log("\napi call\n");
     
-    fetch(`https://api.tiingo.com/tiingo/utilities/search?query=${ticker}&token=8bb5d357e4616c9938090e9e3de7acefc38d224b`)
+    fetch(`https://api.tiingo.com/tiingo/utilities/search?query=${ticker}&token=${tingoApiKey}`)
     .then(res => res.json())
     .then(data => processData(data))
     .then(data => res.send(data));

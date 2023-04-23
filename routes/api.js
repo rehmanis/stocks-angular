@@ -2,6 +2,8 @@ const { response } = require('express');
 var express = require('express');
 var fetch = require('node-fetch');
 var router = express.Router();
+var tingoApiKey = process.env.TINGO_API_KEY;
+var newsApiKey = process.env.NEWS_API_KEY;
 
 
 /* GET users listing. */
@@ -22,9 +24,7 @@ router.get('/search/:ticker', function(req, res, next) {
 
     companies = [];
     ticker = req.params.ticker;
-    // console.log("\napi call\n");
-    
-    fetch(`https://api.tiingo.com/tiingo/utilities/search?query=${ticker}&token=8bb5d357e4616c9938090e9e3de7acefc38d224b`)
+    fetch(`https://api.tiingo.com/tiingo/utilities/search?query=${ticker}&token=${tingoApiKey}`)
     .then(res => res.json())
     .then(data => processData(data))
     .then(data => res.send(data));
@@ -37,14 +37,10 @@ router.get('/detail/:ticker', function(req, res, next) {
 
   details = {};
   ticker = req.params.ticker;
-  // console.log("\nrequesting company details\n");
 
-  fetch(`https://api.tiingo.com/tiingo/daily/${ticker}?token=8bb5d357e4616c9938090e9e3de7acefc38d224b`)
+  fetch(`https://api.tiingo.com/tiingo/daily/${ticker}?token=${tingoApiKey}`)
   .then(res => res.json())
   .then(function(data) {
-
-    // console.log(data.detail);
-    // console.log(data);
 
     if (!data || data.detail){
       details.results = [];
@@ -53,9 +49,6 @@ router.get('/detail/:ticker', function(req, res, next) {
       details.results = [data];
       details.success = true;
     }
-
-
-    // console.log(details)
     res.send(details)
   });
 
@@ -69,7 +62,7 @@ router.get('/price/:ticker', function(req, res, next) {
   ticker = req.params.ticker;
   // console.log("\nrequesting company price\n");
 
-  fetch(`https://api.tiingo.com/iex/?tickers=${ticker}&token=8bb5d357e4616c9938090e9e3de7acefc38d224b`)
+  fetch(`https://api.tiingo.com/iex/?tickers=${ticker}&token=${tingoApiKey}`)
   .then(res => res.json())
   .then(function(data) {
 
@@ -81,7 +74,6 @@ router.get('/price/:ticker', function(req, res, next) {
       price.success = true;
     }
 
-    // console.log(price)
     res.send(price)
   });
 });
@@ -92,9 +84,8 @@ router.get('/chart/daily/:ticker/:startDate', function(req, res, next) {
   dailyChart = {};
   ticker = req.params.ticker;
   startDate = req.params.startDate;
-  // console.log(`\nrequesting company daily chart for ${ticker} from ${startDate}\n`);
 
-  fetch(`https://api.tiingo.com/iex/${ticker}/prices?startDate=${startDate}&resampleFreq=4min&token=8bb5d357e4616c9938090e9e3de7acefc38d224b`)
+  fetch(`https://api.tiingo.com/iex/${ticker}/prices?startDate=${startDate}&resampleFreq=4min&token=${tingoApiKey}`)
   .then(res => res.json())
   .then(function(data) {
 
@@ -105,7 +96,6 @@ router.get('/chart/daily/:ticker/:startDate', function(req, res, next) {
       dailyChart.results = data;
       dailyChart.success = true;
     }
-    
 
     res.send(dailyChart)
   });
@@ -117,9 +107,8 @@ router.get('/news/:ticker', function(req, res, next) {
 
   news = {};
   ticker = req.params.ticker;
-  // console.log(`\nrequesting news ${ticker}\n`);
 
-  fetch(`https://newsapi.org/v2/everything?apiKey=02b9e74dc8a54b8cb99ef52fa07cd062&q=${ticker}`)
+  fetch(`https://newsapi.org/v2/everything?apiKey=${newsApiKey}&q=${ticker}`)
   .then(res => res.json())
   .then(function(data) {
 
@@ -130,11 +119,6 @@ router.get('/news/:ticker', function(req, res, next) {
       news.results = processNews(data.articles);
       news.success = true;
     }
-
-    // console.log(data.articles);
-    // news.results = processNews(data.articles);
-    // news.success = true;
-    // console.log(news)
     res.send(news)
   });
 });
@@ -150,15 +134,11 @@ router.get('/chart/historical/:ticker', function(req, res, next) {
 
   histChart = {};
   ticker = req.params.ticker;
-  // startDate = req.params.startDate;
   console.log(`\nrequesting company historical chart for ${ticker} from ${startDate}\n`);
 
-  fetch(`https://api.tiingo.com/tiingo/daily/${ticker}/prices?startDate=${startDate}&resampleFreq=daily&token=8bb5d357e4616c9938090e9e3de7acefc38d224b`)
+  fetch(`https://api.tiingo.com/tiingo/daily/${ticker}/prices?startDate=${startDate}&resampleFreq=daily&token=${tingoApiKey}`)
   .then(res => res.json())
   .then(function(data) {
-
-    // console.log(data);
-
     if (!data || data.detail){
       histChart.results = [];
       histChart.success = false;
@@ -167,12 +147,6 @@ router.get('/chart/historical/:ticker', function(req, res, next) {
       histChart.success = true;
     }
 
-
-    // histChart.results = data;
-    // histChart.success = true;
-    // val = processHistChart(data)
-    // console.log(val.volume);
-    // console.log(val.ohlc);
     res.send(histChart)
   });
 });
